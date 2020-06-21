@@ -16,86 +16,68 @@ namespace VehicleRental.Service
         {
             _context = context;
         }
+
+        public IEnumerable<VehicleRentalAsset> GetAll()
+        {
+            return _context.VehicleRentalAssets
+                .Include(asset => asset.Status)
+                .Include(asset => asset.Location);
+        }
+
+        public VehicleRentalAsset Get(int id)
+        {
+            return _context.VehicleRentalAssets
+            .Include(asset => asset.Status)
+            .Include(asset => asset.Location)
+            .FirstOrDefault(asset => asset.Id == id);
+        }
         public void Add(VehicleRentalAsset newAsset)
         {
             _context.Add(newAsset);
             _context.SaveChanges();
         }
-        public IEnumerable<VehicleRentalAsset> GetAll()
+        public string GetVIN(int id)
         {
-            //return GetAll();
-            return _context.VehicleRentalAssets
-                .Include(asset => asset.Id)
-                .Include(asset => asset.Make)
-                .Include(asset => asset.Model)
-                .Include(asset => asset.StatusId)
-                .Include(asset => asset.NumberOfUnits)
-                .Include(asset => asset.Cost)
-                .Include(asset => asset.ImageUrl)
-                .Include(asset => asset.Location);
-        }
-        public VehicleRentalAsset GetById(int id)
-        {
-            //return _context.VehicleRentalAssets
-                //.Include(asset => asset.Make)
-                //.Include(asset => asset.Model)
-                //.Include(asset => asset.Status)
-                //.Include(asset => asset.Location)
-                //.FirstOrDefault(asset => asset.Id == id);
-            return GetAll().FirstOrDefault(asset => asset.Id == id);
-        }
-        public VehicleRentalBranch GetVehicleRentalBranch(int id)
-        {
-            //return _context.VehicleRentalAssets.FirstOrDefault(asset => asset.Id == id).Location;
-            return GetById(id).Location;
+            // Car (Discriminator)
+            if (GetType(id) != "Car") return "N/A";
+            var car = (Car)Get(id);
+            return car.VIN;
         }
         public string GetBodyType(int id)
         {
-            // Discriminator Car
-            if (_context.Cars.Any(vehicle => vehicle.Id == id))
-            {
-                return _context.Cars.FirstOrDefault(vehicle => vehicle.Id == id).BodyType;
-            }
-            else return "";
+            // Car (Discriminator)
+            if (GetType(id) != "Car") return "N/A";
+            var car = (Car)Get(id);
+            return car.BodyType;
         }
         public string GetOptions(int id)
         {
-            // Discriminator Car
-            if (_context.Cars.Any(vehicle => vehicle.Id == id))
-            {
-                return _context.Cars.FirstOrDefault(vehicle => vehicle.Id == id).Options;
-            }
-            else return "";
+            // Car (Discriminator)
+            if (GetType(id) != "Car") return "N/A";
+            var car = (Car)Get(id);
+            return car.Options;
         }
-
         public int GetPassengers(int id)
         {
-            // Discriminator Car
-            if (_context.Cars.Any(vehicle => vehicle.Id == id))
-            {
-                return _context.Cars.FirstOrDefault(vehicle => vehicle.Id == id).Passengers;
-            }
-            else return 0;
-        }
-        public string GetVIN(int id)
-        {
-            // Discriminator Car
-            if (_context.Cars.Any(vehicle => vehicle.Id == id))
-            {
-                return _context.Cars.FirstOrDefault(vehicle => vehicle.Id == id).VIN;
-            }
-            else return "";
+            // Car (Discriminator)
+            if (GetType(id) != "Car") return 0;
+            var car = (Car)Get(id);
+            return car.Passengers;
         }
 
         public int GetBags(int id)
         {
-            // Discriminator Car
-            if (_context.Cars.Any(vehicle => vehicle.Id == id))
-            {
-                return _context.Cars.FirstOrDefault(vehicle => vehicle.Id == id).Bags;
-            }
-            else return 0;
+            // Car (Discriminator)
+            if (GetType(id) != "Car") return 0;
+            var car = (Car)Get(id);
+            return car.Bags;
         }
+        public VehicleRentalBranch GetVehicleRentalLocation(int id)
+        {
+            return _context.VehicleRentalAssets.First(asset => asset.Id == id).Location;
+        }
+
+
         public string GetType(int id)
         {
             // In this Method we check the type of object so we can determine whether Discriminator Column 
@@ -103,9 +85,24 @@ namespace VehicleRental.Service
             // Incase we add other types of Vehicles like motor cycle we can create a motorcycle class that
             // inherits from VehicleRentalAsset
             var isCar = _context.VehicleRentalAssets.OfType<Car>()
-                .Where(asset => asset.Id == id);
-            return isCar.Any() ? "Car" : "Unknown";
+                .SingleOrDefault(asset => asset.Id == id);
+            return isCar != null ? "Car" : "Unknown";
 
+        }
+
+        public string GetMake(int id)
+        {
+            return _context.VehicleRentalAssets.First(asset => asset.Id == id).Make;
+        }
+
+        public string GetModel(int id)
+        {
+            return _context.VehicleRentalAssets.First(asset => asset.Id == id).Model;
+        }
+
+        public int GetNumberOfUnits(int id)
+        {
+            return _context.VehicleRentalAssets.First(asset => asset.Id == id).NumberOfUnits;
         }
 
     }

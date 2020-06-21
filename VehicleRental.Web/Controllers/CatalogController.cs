@@ -7,34 +7,34 @@ using Microsoft.EntityFrameworkCore.Update;
 using VehicleRental.Web.Models.Catalog;
 using VehicleRental.Data;
 
-namespace VehicleRental.Controllers
+namespace VehicleRental.Web.Controllers
 {
     public class CatalogController : Controller
     {
 
-        private IVehicleRentalAsset _assets;
+        private readonly IVehicleRentalAsset _assetsService;
 
         // Constructor to enable us access IVehicleRentalAsset object
-        public CatalogController(IVehicleRentalAsset assets)
+        public CatalogController(IVehicleRentalAsset assetsService)
         {
-            _assets = assets;
+            _assetsService = assetsService;
         }
         public IActionResult Index()
         {
-            var assetModels = _assets.GetAll();
-            var listingResult = assetModels
-                .Select(result => new AssetIndexListingModel {
+            var assetModels = _assetsService.GetAll();
 
+            var listingResult = assetModels
+                .Select(result => new AssetIndexListingModel 
+                {
                     Id = result.Id,
                     Make = result.Make,
                     Model = result.Model,  
                     ImageUrl = result.ImageUrl,
-                    Options = _assets.GetOptions(result.Id),
-                    BodyType = _assets.GetBodyType(result.Id),
-                    Passengers = _assets.GetPassengers(result.Id),
-                    Bags = _assets.GetBags(result.Id)
-
-                }) ;
+                    Options = _assetsService.GetOptions(result.Id),
+                    BodyType = _assetsService.GetBodyType(result.Id),
+                    Passengers = _assetsService.GetPassengers(result.Id),
+                    Bags = _assetsService.GetBags(result.Id)
+                });
 
             var model = new AssetIndexModel()
             {

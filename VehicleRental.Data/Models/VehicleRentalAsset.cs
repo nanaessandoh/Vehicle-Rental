@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
@@ -13,10 +14,10 @@ namespace VehicleRental.Data.Models
         [Required]
         public string Model { get; set; }
         [Required]
-        public int StatusId { get; set; }
-        [Required]
+        public Status Status { get; set; }
         public int NumberOfUnits { get; set; }
         [Required]
+        [Display(Name = "Cost of Vehicle" )]
         public double Cost { get; set; }
         public string ImageUrl { get; set; }
         public virtual VehicleRentalBranch Location { get; set; }
