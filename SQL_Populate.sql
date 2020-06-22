@@ -16,7 +16,7 @@ VALUES
 ('Victoria Car Rental','2839 Birkett Lane', 'Victoria','British Columbia','553-315-3555','1992-05-13','/images/branches/14.jpg'),
 ('Maple Ridge Car Rental','2162 Kinchant St', 'Maple Ridge','British Columbia','353-648-5488','1991-05-13','/images/branches/15.jpg');
 
-SELECT * FROM [VehicleRental_Dev].[dbo].[VehicleRentalBranches]
+SELECT * FROM [dbo].[VehicleRentalBranches]
 
 INSERT INTO [dbo].[DriverLicenses]([Fees],[ExpiryDate],[IssueDate])
      VALUES
@@ -31,7 +31,7 @@ INSERT INTO [dbo].[DriverLicenses]([Fees],[ExpiryDate],[IssueDate])
 (2.85,'2021-05-29','2017-12-27'),
 (0.00,'2023-12-04','2019-10-22');
 
-SELECT * FROM [VehicleRental_Dev].[dbo].[DriverLicenses]
+SELECT * FROM [dbo].[DriverLicenses]
 
 INSERT INTO [dbo].[Patrons]([FirstName],[LastName],[Address],[DateOfBirth],[TelephoneNumber],[DriverLicenseId],[VehicleRentalBranchId])
      VALUES
@@ -46,7 +46,7 @@ INSERT INTO [dbo].[Patrons]([FirstName],[LastName],[Address],[DateOfBirth],[Tele
 ('Steve', 'Woods', '2817 Manitoba Street', '1997-09-11','683-653-3533', 9,9),
 ('Justin', 'Lake', '4793 Glover Road', '1983-10-01','653-933-3688', 10,10);
 
-SELECT * FROM [VehicleRental_Dev].[dbo].[Patrons]
+SELECT * FROM [dbo].[Patrons]
 
 
 INSERT INTO [dbo].[Statuses]([Name],[Description])
@@ -56,7 +56,7 @@ INSERT INTO [dbo].[Statuses]([Name],[Description])
 ('Stolen/ Lost','The Vehicle has been reported stolen or lost'),
 ('On Hold','The Vehicle has been placed on hold due to maintenance');
 
-SELECT * FROM [VehicleRental_Dev].[dbo].[Statuses]
+SELECT * FROM [dbo].[Statuses]
 
 
 INSERT INTO [dbo].[VehicleRentalAssets]([Make],[Model],[Cost],[ImageUrl],[LocationId],[Discriminator],[VIN],[BodyType],[Options],[Passengers],[Bags],[StatusId],[NumberOfUnits])
@@ -87,7 +87,7 @@ INSERT INTO [dbo].[VehicleRentalAssets]([Make],[Model],[Cost],[ImageUrl],[Locati
 ('Volkswagen','Jetta',43,'/images/cars/24.png',9,'Car','586E421G133','Saloon','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,3,2,10);
 
 
-SELECT * FROM [VehicleRental_Dev].[dbo].[VehicleRentalAssets]
+SELECT * FROM [dbo].[VehicleRentalAssets]
 
 INSERT INTO [dbo].[BranchHours]([BranchId],[DayOfWeek],[OpenTime],[CloseTime])
      VALUES
@@ -211,4 +211,4 @@ INSERT INTO [dbo].[BranchHours]([BranchId],[DayOfWeek],[OpenTime],[CloseTime])
 (15, 6, 8, 17),
 (15, 7, 8, 17); 
 
-SELECT * FROM [VehicleRental_Dev].[dbo].[BranchHours]
+SELECT * FROM [dbo].[BranchHours]
