@@ -24,12 +24,10 @@ namespace VehicleRental.Service
                 .Include(asset => asset.Location);
         }
 
-        public VehicleRentalAsset Get(int id)
+        public VehicleRentalAsset GetById(int id)
         {
-            return _context.VehicleRentalAssets
-            .Include(asset => asset.Status)
-            .Include(asset => asset.Location)
-            .FirstOrDefault(asset => asset.Id == id);
+            return GetAll()
+                .FirstOrDefault(asset => asset.Id == id);
         }
         public void Add(VehicleRentalAsset newAsset)
         {
@@ -40,28 +38,28 @@ namespace VehicleRental.Service
         {
             // Car (Discriminator)
             if (GetType(id) != "Car") return "N/A";
-            var car = (Car)Get(id);
+            var car = (Car)GetById(id);
             return car.VIN;
         }
         public string GetBodyType(int id)
         {
             // Car (Discriminator)
             if (GetType(id) != "Car") return "N/A";
-            var car = (Car)Get(id);
+            var car = (Car)GetById(id);
             return car.BodyType;
         }
         public string GetOptions(int id)
         {
             // Car (Discriminator)
             if (GetType(id) != "Car") return "N/A";
-            var car = (Car)Get(id);
+            var car = (Car)GetById(id);
             return car.Options;
         }
         public int GetPassengers(int id)
         {
             // Car (Discriminator)
             if (GetType(id) != "Car") return 0;
-            var car = (Car)Get(id);
+            var car = (Car)GetById(id);
             return car.Passengers;
         }
 
@@ -69,7 +67,7 @@ namespace VehicleRental.Service
         {
             // Car (Discriminator)
             if (GetType(id) != "Car") return 0;
-            var car = (Car)Get(id);
+            var car = (Car)GetById(id);
             return car.Bags;
         }
         public VehicleRentalBranch GetVehicleRentalLocation(int id)
@@ -100,10 +98,6 @@ namespace VehicleRental.Service
             return _context.VehicleRentalAssets.First(asset => asset.Id == id).Model;
         }
 
-        public int GetNumberOfUnits(int id)
-        {
-            return _context.VehicleRentalAssets.First(asset => asset.Id == id).NumberOfUnits;
-        }
 
     }
 }

@@ -18,9 +18,6 @@ namespace VehicleRental.Web.Models.Catalog
         public string Model { get; set; }
         public string ImageUrl { get; set; }
         public string BodyType { get; set; }
-        public string Options { get; set; }
-        public int Passengers { get; set; }
-        public int Bags { get; set; }
 
     }
 }

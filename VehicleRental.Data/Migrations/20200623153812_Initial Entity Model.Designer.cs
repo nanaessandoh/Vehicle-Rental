@@ -10,8 +10,8 @@ using VehicleRental.Data;
 namespace VehicleRental.Data.Migrations
 {
     [DbContext(typeof(VehicleRentalDBContext))]
-    [Migration("20200621004917_Changed Status Entity")]
-    partial class ChangedStatusEntity
+    [Migration("20200623153812_Initial Entity Model")]
+    partial class InitialEntityModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -192,8 +192,6 @@ namespace VehicleRental.Data.Migrations
 
                     b.Property<string>("Model")
                         .IsRequired();
-
-                    b.Property<int>("NumberOfUnits");
 
                     b.Property<int>("StatusId");
 

@@ -7,7 +7,6 @@ namespace VehicleRental.Data
     public class VehicleRentalDBContext: DbContext
     {
         public VehicleRentalDBContext(DbContextOptions options) : base(options) { }
-
         public DbSet<BranchHour> BranchHours { get; set; }
         public DbSet<CheckoutHistory> CheckoutHistories { get; set; }
         public DbSet<Checkout> Checkouts { get; set; }

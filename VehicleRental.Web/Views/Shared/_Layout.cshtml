@@ -6,12 +6,16 @@
     <title>@ViewData["Title"] - Vehicle Rental</title>
 
     <environment include="Development">
+        <link rel="stylesheet" href="~/css/material.indigo-blue.min.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css"
+              asp-fallback-href="~/css/material.indigo-blue.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
@@ -26,7 +30,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">VehicleRental.Web</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Vehicle Rental</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -44,7 +48,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2020 - VehicleRental.Web</p>
+            <p>&copy; @DateTime.Now.Year - Vehicle Rental - <a href="http://wwww.nanaessandoh.com/" target="_blank">Nana Essandoh</a></p>
         </footer>
     </div>
 

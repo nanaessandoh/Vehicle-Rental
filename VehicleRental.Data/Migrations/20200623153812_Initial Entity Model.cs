@@ -118,7 +118,6 @@ namespace VehicleRental.Data.Migrations
                     Make = table.Column<string>(nullable: false),
                     Model = table.Column<string>(nullable: false),
                     StatusId = table.Column<int>(nullable: false),
-                    NumberOfUnits = table.Column<int>(nullable: false),
                     Cost = table.Column<double>(nullable: false),
                     ImageUrl = table.Column<string>(nullable: true),
                     LocationId = table.Column<int>(nullable: true),
@@ -138,6 +137,12 @@ namespace VehicleRental.Data.Migrations
                         principalTable: "VehicleRentalBranches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_VehicleRentalAssets_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -272,6 +277,11 @@ namespace VehicleRental.Data.Migrations
                 name: "IX_VehicleRentalAssets_LocationId",
                 table: "VehicleRentalAssets",
                 column: "LocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleRentalAssets_StatusId",
+                table: "VehicleRentalAssets",
+                column: "StatusId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -292,9 +302,6 @@ namespace VehicleRental.Data.Migrations
                 name: "Patrons");
 
             migrationBuilder.DropTable(
-                name: "Statuses");
-
-            migrationBuilder.DropTable(
                 name: "VehicleRentalAssets");
 
             migrationBuilder.DropTable(
@@ -302,6 +309,9 @@ namespace VehicleRental.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "VehicleRentalBranches");
+
+            migrationBuilder.DropTable(
+                name: "Statuses");
         }
     }
 }

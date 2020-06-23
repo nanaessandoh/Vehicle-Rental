@@ -8,7 +8,7 @@ namespace VehicleRental.Data
     public interface IVehicleRentalAsset
     {
         IEnumerable<VehicleRentalAsset> GetAll();
-        VehicleRentalAsset Get(int id);
+        VehicleRentalAsset GetById(int id);
         void Add(VehicleRentalAsset newAsset);
         string GetVIN(int id);
         string GetBodyType(int id);
@@ -18,7 +18,6 @@ namespace VehicleRental.Data
         string GetType(int id);
         string GetMake(int id);
         string GetModel(int id);
-        int GetNumberOfUnits(int id);
         VehicleRentalBranch GetVehicleRentalLocation(int id);
 
 

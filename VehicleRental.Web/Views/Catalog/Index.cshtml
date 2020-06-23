@@ -1,48 +1,39 @@
 ﻿@model VehicleRental.Web.Models.Catalog.AssetIndexModel
 
-@{
-    ViewBag.Title = "Vehicle Rental Catalog";
-}
 
 
-<h1>@ViewBag.Title</h1>
+    <div id="assets">
+        <div class=" clearfix detailHeading">
+            <h2 class="text-muted">Vehicle Rental Catalog</h2>
+        </div>
 
-<div id="assets">
-    <h3>Library Catalog</h3>
-    <div id="assetsTable">
-        <table class="table table-condensed" id="catalogIndexTable">
-            <thead>
-                <tr>
-                    <th>Image</th>
-                    <th>Make</th>
-                    <th>Model</th>
-                    <th>Options</th>
-                    <th>Body Type</th>
-                    <th>Passengers</th>
-                    <th>Bags</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var asset in Model.Assets )
-                {
-                <tr class="assetRow">
-                    <td class="">
-                        <div>
-                            <a asp-controller="Catalog" asp-action="Detail" asp-route-id="@asset.Id">
-                                <img src="@asset.ImageUrl" class="imageCell" />
-                            </a>
-                        </div>
-                    </td>
-                    <td class="">@asset.Make</td>
-                    <td class="">@asset.Model</td>
-                    <td class="">@asset.Options</td>
-                    <td class="">@asset.BodyType</td>
-                    <td class="">@asset.Passengers</td>
-                    <td class="">@asset.Bags</td>
-
-                </tr>
-                }
-            </tbody>
-        </table>
+        <div id="assetsTable">
+            <table class="table table-condensed" id="catalogIndexTable">
+                <thead>
+                    <tr>
+                        <th class="text-center">Image</th>
+                        <th class="text-center">Make</th>
+                        <th class="text-center">Model</th>
+                        <th class="text-center">Body Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var asset in Model.Assets)
+                    {
+                        <tr class="assetRow">
+                            <td class="">
+                                <div>
+                                    <a asp-controller="Catalog" asp-action="Detail" asp-route-id="@asset.Id">
+                                        <img src="@asset.ImageUrl" class="imageCell" />
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="">@asset.Make</td>
+                            <td class="">@asset.Model</td>
+                            <td class="">@asset.BodyType</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>

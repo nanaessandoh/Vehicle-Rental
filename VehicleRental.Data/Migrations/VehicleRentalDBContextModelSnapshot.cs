@@ -191,8 +191,6 @@ namespace VehicleRental.Data.Migrations
                     b.Property<string>("Model")
                         .IsRequired();
 
-                    b.Property<int>("NumberOfUnits");
-
                     b.Property<int>("StatusId");
 
                     b.HasKey("Id");

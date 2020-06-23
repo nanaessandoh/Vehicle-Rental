@@ -1,0 +1,55 @@
+﻿@model VehicleRental.Web.Models.Catalog.AssetDetailModel
+
+<div class="container">
+    <div class="clearfix detailHeading">
+        <h2 class="text-muted">Vehicle Details</h2>
+    </div>
+
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-4">
+                <img class="detailImage" src="@Model.ImageUrl" />
+            </div>
+            <div class="col-md-4">
+                <p id="itemStatus"><strong>Make: </strong>@Model.Make</p>
+                <p id="itemStatus"><strong>Model: </strong>@Model.Model</p>
+                <p id="itemStatus"><strong>BodyType: </strong>@Model.BodyType</p>
+                <p id="itemStatus"><strong>Passenger (#): </strong> @Model.Passengers</p>
+                <p id="itemStatus"><strong>Bags (#): </strong>@Model.Bags</p>
+                <p id="itemStatus"><strong>Status: </strong> @Model.Status</p>
+                <br />
+
+                @if (Model.Status == "Checked Out")
+                {
+                    <p id="itemStatus"><strong>Patron Name: </strong> @Model.PatronName</p>
+                    <p><a class="btn btn-lg btn-outline-success" role="button" asp-controller="Catalog" asp-action="CheckIn" asp-route-id="@Model.Id">Check In</a></p>
+                    <p><a class="btn btn-lg btn-outline-danger" role="button" asp-controller="Catalog" asp-action="MarkStolen" asp-route-id="@Model.Id">Mark as Stolen</a></p>
+                }
+
+                @if (Model.Status == "Available")
+                {
+                    <p><a class="btn btn-lg btn-block btn-outline-primary" role="button" asp-controller="Catalog" asp-action="CheckOut" asp-route-id="@Model.Id">Check Out</a></p>
+                    <p><a class="btn btn-lg btn-block btn-outline-secondary" role="button" asp-controller="Catalog" asp-action="Hold" asp-route-id="@Model.Id">Place on Hold</a></p>
+                }
+
+                @if (Model.Status == "Stolen")
+                {
+                    <p><a class="btn btn-lg btn-outline-success" role="button" asp-controller="Catalog" asp-action="MarkAvailable" asp-route-id="@Model.Id">Available Now</a></p>
+                    <p><a class="btn btn-lg btn-outline-secondary" role="button" asp-controller="Catalog" asp-action="Hold" asp-route-id="@Model.Id">Place on Hold</a></p>
+                    <div class="alert alert-danger" role="alert">The Vehicle (@Model.VIN) has been reported lost. Issue escalated to relevent authority</div>
+                }
+
+                @if (Model.Status == "Hold")
+                {
+                    <p><a class="btn btn-lg btn-outline-primary" role="button" asp-controller="Catalog" asp-action="MarkAvailable" asp-route-id="@Model.Id">Available Now</a></p>
+                }
+
+            </div>
+            <div class="col-md-4">
+                <p id="itemStatus"><strong>VIN: </strong> @Model.VIN</p>
+                <p id="itemStatus"><strong>Location: </strong> @Model.CurrentLocation</p>
+                <p id="itemStatus"><strong>Price Per Day (CAD): </strong> @Model.Cost</p>
+                <p id="itemStatus"><strong>Options: </strong>@Model.Options</p>
+            </div>
+        </div>
+</div>
