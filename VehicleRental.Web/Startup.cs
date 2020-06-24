@@ -33,9 +33,11 @@ namespace VehicleRental.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSingleton(Configuration);
-            services.AddScoped<IVehicleRentalAsset, VehicleRentalAssetService>();
             services.AddDbContext<VehicleRentalDBContext>(options
                 => options.UseSqlServer(Configuration.GetConnectionString("VehicleRentalConnection")));
+            services.AddScoped<IVehicleRentalAsset, VehicleRentalAssetService>();
+            services.AddScoped<ICheckout, CheckoutService>();
+
         }
 
 

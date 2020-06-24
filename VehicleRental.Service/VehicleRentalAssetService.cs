@@ -11,7 +11,7 @@ namespace VehicleRental.Service
     {
         // Create DbContext private field and Create a constructor that takes the DbContext  
         private readonly VehicleRentalDBContext _context;
-        //Constructor
+        // Constructor
         public VehicleRentalAssetService(VehicleRentalDBContext context)
         {
             _context = context;
@@ -26,8 +26,8 @@ namespace VehicleRental.Service
 
         public VehicleRentalAsset GetById(int id)
         {
-            return GetAll()
-                .FirstOrDefault(asset => asset.Id == id);
+            return GetAll().FirstOrDefault(asset => asset.Id == id);
+
         }
         public void Add(VehicleRentalAsset newAsset)
         {
