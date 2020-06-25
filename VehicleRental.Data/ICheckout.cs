@@ -10,18 +10,19 @@ namespace VehicleRental.Data
         IEnumerable<Checkout> GetAll();
         Checkout GetById(int checkoutId);
         void Add(Checkout newCheckout);
-        void CheckOutItem(int assetId, int driverLicenseId);
-        void CheckInItem(int assetId);
         IEnumerable<CheckoutHistory> GetCheckoutHistory(int id);
         Checkout GetLatestCheckout(int id);
 
-        void PlaceHold(int assetId);
-        void RemoveHold(int assetId);
+
         DateTime GetCurrentHoldPlaced(int id);
         IEnumerable<Hold> GetCurrentHolds(int id);
 
+
+        void CheckOutItem(int assetId, int driverLicenseId);
+        void CheckInItem(int assetId);
         void MarkStolen(int assetId);
         void MarkAvailable(int assetId);
+        void PlaceHold(int assetId);
 
     }
 }
