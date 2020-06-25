@@ -35,7 +35,6 @@
                 @if (Model.Status == "Stolen")
                 {
                     <p><a class="btn btn-lg btn-outline-success" role="button" asp-controller="Catalog" asp-action="MarkAvailable" asp-route-id="@Model.Id">Available Now</a></p>
-                    <p><a class="btn btn-lg btn-outline-secondary" role="button" asp-controller="Catalog" asp-action="Hold" asp-route-id="@Model.Id">Place on Hold</a></p>
                     <div class="alert alert-danger" role="alert">The Vehicle (@Model.VIN) has been reported lost. Issue escalated to relevent authority</div>
                 }
 
