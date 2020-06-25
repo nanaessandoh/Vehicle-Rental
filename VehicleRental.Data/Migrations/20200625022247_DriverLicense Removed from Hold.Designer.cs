@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehicleRental.Data;
 
 namespace VehicleRental.Data.Migrations
 {
     [DbContext(typeof(VehicleRentalDBContext))]
-    partial class VehicleRentalDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200625022247_DriverLicense Removed from Hold")]
+    partial class DriverLicenseRemovedfromHold
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -8,7 +8,7 @@ namespace VehicleRental.Data.Models
     {
         public int Id { get; set; }
         public virtual VehicleRentalAsset VehicleRentalAsset { get; set; }
-        public virtual DriverLicense DriverLicense { get; set; }
+        //public virtual DriverLicense DriverLicense { get; set; }
         public DateTime HoldPlaced { get; set; }
     }
 }
