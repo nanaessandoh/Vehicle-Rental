@@ -14,9 +14,15 @@ namespace VehicleRental.Web.Controllers
     {
 
         private readonly IVehicleRentalAsset _assetsService;
+        private readonly ICheckout _checkoutService;
 
         // Constructor to enable us access IVehicleRentalAsset object
-        public CatalogController(IVehicleRentalAsset assetsService) => _assetsService = assetsService;
+        public CatalogController(IVehicleRentalAsset assetsService, ICheckout checkoutService)
+        {
+            _assetsService = assetsService;
+            _checkoutService = checkoutService;
+
+        }
         public IActionResult Index()
         {
             var assetModels = _assetsService.GetAll();
@@ -44,18 +50,22 @@ namespace VehicleRental.Web.Controllers
             var assetModels = _assetsService.GetById(id);
             var model = new AssetDetailModel
             {
-                Id = id,
+                AssetId = id,
                 Make = assetModels.Make,
                 Model = assetModels.Model,
                 ImageUrl = assetModels.ImageUrl,
+                Status = assetModels.Status.Name,
+                Cost = assetModels.Cost,
                 BodyType = _assetsService.GetBodyType(id),
                 Options = _assetsService.GetOptions(id),
                 Passengers = _assetsService.GetPassengers(id),
                 Bags = _assetsService.GetBags(id),
-                Status = assetModels.Status.Name,
-                Cost = assetModels.Cost,
                 VIN = _assetsService.GetVIN(id),
-                CurrentLocation = _assetsService.GetVehicleRentalLocation(id).Name
+                CurrentLocation = _assetsService.GetVehicleRentalLocation(id).Name,
+                PatronName = _checkoutService.GetCurrentCheckoutPatron(id),
+                LatestCheckout = _checkoutService.GetLatestCheckout(id),
+                CheckoutHistory = _checkoutService.GetCheckoutHistory(id),
+                HoldHistory = _checkoutService.GetCurrentHolds(id)
             };
 
             return View(model);

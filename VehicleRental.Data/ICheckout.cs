@@ -12,17 +12,17 @@ namespace VehicleRental.Data
         void Add(Checkout newCheckout);
         IEnumerable<CheckoutHistory> GetCheckoutHistory(int id);
         Checkout GetLatestCheckout(int id);
-
-
-        DateTime GetCurrentHoldPlaced(int id);
-        IEnumerable<Hold> GetCurrentHolds(int id);
+        string GetCurrentCheckoutPatron(int id);
 
 
         void CheckOutItem(int assetId, int driverLicenseId);
         void CheckInItem(int assetId);
         void MarkStolen(int assetId);
         void MarkAvailable(int assetId);
+
         void PlaceHold(int assetId);
+        DateTime GetCurrentHoldPlaced(int id);
+        IEnumerable<Hold> GetCurrentHolds(int id);
 
     }
 }

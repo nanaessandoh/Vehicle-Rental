@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.SqlServer.Query.ExpressionTranslators.Intern
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using VehicleRental.Data;
 using VehicleRental.Data.Models;
@@ -20,39 +21,62 @@ namespace VehicleRental.Service
             _context = context;
         }
 
+        public IEnumerable<Checkout> GetAll()
+        {
+            return _context.Checkouts;
+        }
+
+        public Checkout GetById(int checkoutId)
+        {
+            return GetAll().FirstOrDefault(asset => asset.Id == checkoutId);
+        }
+
         public void Add(Checkout newCheckout)
         {
             _context.Add(newCheckout);
             _context.SaveChanges();
         }
 
-        public void CheckInItem(int assetId)
+        public IEnumerable<CheckoutHistory> GetCheckoutHistory(int id)
         {
-            var currentTime = DateTime.Now;
-            var item = _context.VehicleRentalAssets.FirstOrDefault(asset => asset.Id == assetId);
+            return _context.CheckoutHistories
+                .Include(asset => asset.VehicleRentalAsset)
+                .Include(asset => asset.DriverLicense)
+                .Where(asset => asset.VehicleRentalAsset.Id == id);
+        }
 
-            // Check if Asset has been Checked Out
-            if (item.Status.Name == "Checked Out")
+        public Checkout GetLatestCheckout(int id)
+        {
+            return _context.Checkouts
+                .Where(asset => asset.VehicleRentalAsset.Id == id)
+                .OrderByDescending(asset => asset.StartTime)
+                .FirstOrDefault();
+        }
+
+        public string GetCurrentCheckoutPatron(int assetId)
+        {
+            var checkout = GetCheckedoutByAsset(assetId);
+            if ( checkout == null)
             {
-                // Remove Existing Checkout on Asset
-                RemoveExistingCheckout(assetId);
-                // Close Existing Checkout History
-                CloseExistingCheckoutHistory(assetId, currentTime);
-                // Update Asset Status as Available
-                UpdateAssetStatus(assetId, "Available");
-                // Save Changes
-                _context.SaveChanges();
-
+                return "N/A";
             }
 
+            var cardId = checkout.DriverLicense.Id;
+            var patron = _context.Patrons
+                .FirstOrDefault(asset => asset.Id == cardId);
+            return patron.FirstName + " " + patron.LastName;
         }
+
+
+
+
 
         public void CheckOutItem(int assetId, int driverLicenseId)
         {
             var item = _context.VehicleRentalAssets.FirstOrDefault(asset => asset.Id == assetId);
-            
+
             // Check if Asset is Available and not Checked Out
-            if ( item.Status.Name == "Available")
+            if (item.Status.Name == "Available")
             {
                 // Update Asset Status as Checked Out
                 UpdateAssetStatus(assetId, "Checked Out");
@@ -89,49 +113,39 @@ namespace VehicleRental.Service
 
         }
 
-        private DateTime GetDefaultCheckout(DateTime currentTime)
+        public void CheckInItem(int assetId)
         {
-            return currentTime.AddDays(2);
+            var currentTime = DateTime.Now;
+            var item = _context.VehicleRentalAssets.FirstOrDefault(asset => asset.Id == assetId);
+
+            // Check if Asset has been Checked Out
+            if (item.Status.Name == "Checked Out")
+            {
+                // Remove Existing Checkout on Asset
+                RemoveExistingCheckout(assetId);
+                // Close Existing Checkout History
+                CloseExistingCheckoutHistory(assetId, currentTime);
+                // Update Asset Status as Available
+                UpdateAssetStatus(assetId, "Available");
+                // Save Changes
+                _context.SaveChanges();
+
+            }
+
         }
 
-        public IEnumerable<Checkout> GetAll()
+        public void MarkStolen(int assetId)
         {
-            return _context.Checkouts;
-        }
-
-        public Checkout GetById(int checkoutId)
-        {
-            return GetAll().FirstOrDefault(asset => asset.Id == checkoutId);
-        }
-
-        public IEnumerable<CheckoutHistory> GetCheckoutHistory(int id)
-        {
-            return _context.CheckoutHistories
-                .Include(asset => asset.VehicleRentalAsset)
-                .Include (asset => asset.DriverLicense)
-                .Where(asset => asset.VehicleRentalAsset.Id == id);
-        }
-
-        public DateTime GetCurrentHoldPlaced(int id)
-        {
-            return _context.Holds
-                .Where(asset => asset.VehicleRentalAsset.Id == id)
-                .FirstOrDefault().HoldPlaced;
-        }
-
-        public IEnumerable<Hold> GetCurrentHolds(int id)
-        {
-            return _context.Holds
-                .Include(asset => asset.VehicleRentalAsset)
-                .Where(asset => asset.VehicleRentalAsset.Id == id);
-        }
-
-        public Checkout GetLatestCheckout(int id)
-        {
-            return _context.Checkouts
-                .Where(asset => asset.VehicleRentalAsset.Id == id)
-                .OrderByDescending(asset => asset.StartTime)
-                .FirstOrDefault();
+            var item = _context.VehicleRentalAssets
+                .FirstOrDefault(asset => asset.Id == assetId);
+            // Check If Asset is Checked Out
+            if (item.Status.Name == "Checked Out")
+            {
+                // Update Status of Vehicle Asset to Available
+                UpdateAssetStatus(assetId, "Stolen");
+                // Save Changes
+                _context.SaveChanges();
+            }
         }
 
         public void MarkAvailable(int assetId)
@@ -145,8 +159,6 @@ namespace VehicleRental.Service
             {
                 // Update Status of Vehicle Asset to Available
                 UpdateAssetStatus(assetId, "Available");
-                // Remove Existing Hold in the Table
-                RemoveExistingHolds(assetId);
                 // Save Changes
                 _context.SaveChanges();
             }
@@ -165,15 +177,57 @@ namespace VehicleRental.Service
 
         }
 
-        private void RemoveExistingHolds(int assetId)
-        {
-            var hold = _context.Holds.FirstOrDefault(asset => asset.Id == assetId); ;
 
-            if (hold != null)
+
+
+
+
+
+        public void PlaceHold(int assetId)
+        {
+            var currentTime = DateTime.Now;
+            var item = _context.VehicleRentalAssets
+                .FirstOrDefault(asset => asset.Id == assetId);
+
+            // Check if Asset if Available then Set Satus as On hold
+            if (item.Status.Name == "Available")
             {
-                _context.Remove(hold);
+                UpdateAssetStatus(assetId, "On Hold");
+
+                // Add Entry to Hold Table
+                var hold = new Hold
+                {
+                    VehicleRentalAsset = item,
+                    HoldPlaced = currentTime
+                };
+
+                _context.Add(hold);
+                _context.SaveChanges();
             }
+
+
         }
+
+        public DateTime GetCurrentHoldPlaced(int assetId)
+        {
+            return _context.Holds
+                .Where(asset => asset.VehicleRentalAsset.Id == assetId)
+                .OrderByDescending(asset => asset.HoldPlaced)
+                .FirstOrDefault().HoldPlaced;
+        }
+
+        public IEnumerable<Hold> GetCurrentHolds(int id)
+        {
+            return _context.Holds
+                .Include(asset => asset.VehicleRentalAsset)
+                .Where(asset => asset.VehicleRentalAsset.Id == id);
+        }
+
+
+
+
+
+        // Helper Methods
 
         private void UpdateAssetStatus(int assetId, string statusName)
         {
@@ -202,44 +256,20 @@ namespace VehicleRental.Service
             }
         }
 
-        public void MarkStolen(int assetId)
+        private DateTime GetDefaultCheckout(DateTime currentTime)
         {
-            var item = _context.VehicleRentalAssets
-                .FirstOrDefault(asset => asset.Id == assetId);
-            // Check If Asset is Checked Out
-            if (item.Status.Name == "Checked Out")
-            {
-                // Update Status of Vehicle Asset to Available
-                UpdateAssetStatus(assetId, "Stolen");
-                // Save Changes
-                _context.SaveChanges();
-            }
+            // Default CheckIn time is 2 days from Checkout 
+            return currentTime.AddDays(2);
         }
 
-        public void PlaceHold(int assetId)
+        private Checkout GetCheckedoutByAsset(int assetId)
         {
-            var currentTime = DateTime.Now;
-            var item = _context.VehicleRentalAssets
-                .FirstOrDefault(asset => asset.Id == assetId);
-
-            // Check if Asset if Available and Set Satus as On hold
-            if (item.Status.Name == "Available")
-            {
-                UpdateAssetStatus(assetId, "On Hold");
-
-                // Add to Hold Table
-                var hold = new Hold
-                {
-                    VehicleRentalAsset = item,
-                    HoldPlaced = currentTime
-                };
-
-                _context.Add(hold);
-                _context.SaveChanges();
-            }
-
-
+            return _context.Checkouts
+                .Include(asset => asset.VehicleRentalAsset)
+                .Include(asset => asset.DriverLicense)
+                .FirstOrDefault(asset => asset.VehicleRentalAsset.Id == assetId);
         }
+
 
     }
 }
