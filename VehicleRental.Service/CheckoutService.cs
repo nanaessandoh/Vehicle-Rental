@@ -66,6 +66,17 @@ namespace VehicleRental.Service
                 .FirstOrDefault(asset => asset.Id == cardId);
             return patron.FirstName + " " + patron.LastName;
         }
+        
+        public bool IsCheckedout(int assetId)
+        {
+            //var item = _context.VehicleRentalAssets.FirstOrDefault(asset => asset.Id == assetId);
+            //return (item.Status.Name == "Checked Out") ;
+
+            // OR
+            return _context.Checkouts
+                .Where(assets => assets.VehicleRentalAsset.Id == assetId)
+                .Any();
+        }
 
 
 

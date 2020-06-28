@@ -21,8 +21,10 @@ namespace VehicleRental.Web.Models.Catalog
         public string VIN { get; set; }
         public string CurrentLocation { get; set; }
         public string PatronName { get; set; }
-        public Checkout LatestCheckout { get; set; }
+        public VehicleRental.Data.Models.Checkout LatestCheckout { get; set; }
         public IEnumerable<CheckoutHistory> CheckoutHistory { get; set; }
         public IEnumerable<Hold> HoldHistory { get; set; }
+        public int CheckoutHistoryCount { get; set; }
+        public int HoldHistoryCount { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Update;
 using VehicleRental.Web.Models.Catalog;
 using VehicleRental.Data;
 using VehicleRental.Data.Models;
+using VehicleRental.Web.Models.Checkout;
 
 namespace VehicleRental.Web.Controllers
 {
@@ -65,10 +66,66 @@ namespace VehicleRental.Web.Controllers
                 PatronName = _checkoutService.GetCurrentCheckoutPatron(id),
                 LatestCheckout = _checkoutService.GetLatestCheckout(id),
                 CheckoutHistory = _checkoutService.GetCheckoutHistory(id),
-                HoldHistory = _checkoutService.GetCurrentHolds(id)
+                HoldHistory = _checkoutService.GetCurrentHolds(id),
+                CheckoutHistoryCount = _checkoutService.GetCheckoutHistory(id).Count(),
+                HoldHistoryCount = _checkoutService.GetCurrentHolds(id).Count()
             };
 
             return View(model);
+        }
+
+
+
+        public IActionResult CheckOut(int id)
+        {
+            var assetModel = _assetsService.GetById(id);
+
+            var model = new CheckoutModel
+            {
+                AssetId = id,
+                ImageUrl = assetModel.ImageUrl,
+                Make = assetModel.Make,
+                Model = assetModel.Model,
+                IsCheckedOut = _checkoutService.IsCheckedout(id)
+            };
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult PlaceCheckout(int assetId, int driverLicenseId)
+        {
+            _checkoutService.CheckOutItem(assetId, driverLicenseId);
+            return RedirectToAction("Detail", new { id = assetId });
+        }
+
+        [HttpPost]
+        public IActionResult CheckIn(int assetId, int driverLicenseId)
+        {
+            _checkoutService.CheckInItem(assetId);
+            return RedirectToAction("Detail", new { id = assetId });
+        }
+
+        [HttpPost]
+        public IActionResult PlaceHold(int assetId, int driverLicenseId)
+        {
+            _checkoutService.PlaceHold(assetId);
+            return RedirectToAction("Detail", new { id = assetId });
+        }
+
+        [HttpPost]
+        public IActionResult MarkStolen(int assetId, int driverLicenseId)
+        {
+            _checkoutService.MarkStolen(assetId);
+            return RedirectToAction("Detail", new { id = assetId });
+        }
+
+        [HttpPost]
+        public IActionResult MarkAvailable(int assetId, int driverLicenseId)
+        {
+            _checkoutService.MarkAvailable(assetId);
+            return RedirectToAction("Detail", new { id = assetId });
         }
     }
 }

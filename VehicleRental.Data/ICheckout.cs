@@ -13,6 +13,7 @@ namespace VehicleRental.Data
         IEnumerable<CheckoutHistory> GetCheckoutHistory(int id);
         Checkout GetLatestCheckout(int id);
         string GetCurrentCheckoutPatron(int id);
+        bool IsCheckedout(int assetId);
 
 
         void CheckOutItem(int assetId, int driverLicenseId);
