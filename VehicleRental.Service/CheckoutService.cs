@@ -84,7 +84,10 @@ namespace VehicleRental.Service
 
         public void CheckOutItem(int assetId, int driverLicenseId)
         {
-            var item = _context.VehicleRentalAssets.FirstOrDefault(asset => asset.Id == assetId);
+            var item = _context.VehicleRentalAssets
+                .Include(asset => asset.Status)
+                .Include(asset => asset.Location)
+                .FirstOrDefault(asset => asset.Id == assetId);
 
             // Check if Asset is Available and not Checked Out
             if (item.Status.Name == "Available")

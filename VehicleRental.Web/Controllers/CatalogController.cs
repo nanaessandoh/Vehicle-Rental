@@ -83,6 +83,7 @@ namespace VehicleRental.Web.Controllers
             var model = new CheckoutModel
             {
                 AssetId = id,
+                DriverLicenseId = 0,
                 ImageUrl = assetModel.ImageUrl,
                 Make = assetModel.Make,
                 Model = assetModel.Model,
