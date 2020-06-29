@@ -37,18 +37,18 @@ namespace VehicleRental.Service
             _context.SaveChanges();
         }
 
-        public IEnumerable<CheckoutHistory> GetCheckoutHistory(int id)
+        public IEnumerable<CheckoutHistory> GetCheckoutHistory(int assetId)
         {
             return _context.CheckoutHistories
                 .Include(asset => asset.VehicleRentalAsset)
                 .Include(asset => asset.DriverLicense)
-                .Where(asset => asset.VehicleRentalAsset.Id == id);
+                .Where(asset => asset.VehicleRentalAsset.Id == assetId);
         }
 
-        public Checkout GetLatestCheckout(int id)
+        public Checkout GetLatestCheckout(int assetId)
         {
             return _context.Checkouts
-                .Where(asset => asset.VehicleRentalAsset.Id == id)
+                .Where(asset => asset.VehicleRentalAsset.Id == assetId)
                 .OrderByDescending(asset => asset.StartTime)
                 .FirstOrDefault();
         }
@@ -69,7 +69,10 @@ namespace VehicleRental.Service
         
         public bool IsCheckedout(int assetId)
         {
-            //var item = _context.VehicleRentalAssets.FirstOrDefault(asset => asset.Id == assetId);
+            //var item = _context.VehicleRentalAssets
+                //.Include(asset => asset.Status)
+                //.Include(asset => asset.Location)
+                //.FirstOrDefault(asset => asset.Id == assetId);
             //return (item.Status.Name == "Checked Out") ;
 
             // OR
@@ -130,7 +133,10 @@ namespace VehicleRental.Service
         public void CheckInItem(int assetId)
         {
             var currentTime = DateTime.Now;
-            var item = _context.VehicleRentalAssets.FirstOrDefault(asset => asset.Id == assetId);
+            var item = _context.VehicleRentalAssets
+                .Include(asset => asset.Status)
+                .Include(asset => asset.Location)
+                .FirstOrDefault(asset => asset.Id == assetId);
 
             // Check if Asset has been Checked Out
             if (item.Status.Name == "Checked Out")
@@ -151,6 +157,8 @@ namespace VehicleRental.Service
         public void MarkStolen(int assetId)
         {
             var item = _context.VehicleRentalAssets
+                .Include(asset => asset.Status)
+                .Include(asset => asset.Location)
                 .FirstOrDefault(asset => asset.Id == assetId);
             // Check If Asset is Checked Out
             if (item.Status.Name == "Checked Out")
@@ -167,6 +175,8 @@ namespace VehicleRental.Service
             var currentTime = DateTime.Now;
 
             var item = _context.VehicleRentalAssets
+                .Include(asset => asset.Status)
+                .Include(asset => asset.Location)
                 .FirstOrDefault(asset => asset.Id == assetId);
 
             if (item.Status.Name == "On Hold")
@@ -201,6 +211,8 @@ namespace VehicleRental.Service
         {
             var currentTime = DateTime.Now;
             var item = _context.VehicleRentalAssets
+                .Include(asset => asset.Status)
+                .Include(asset => asset.Location)
                 .FirstOrDefault(asset => asset.Id == assetId);
 
             // Check if Asset if Available then Set Satus as On hold
