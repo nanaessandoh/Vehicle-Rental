@@ -10,24 +10,40 @@
             <div class="col-md-3">
                 <div>
                     <p class="text-center" id="itemTitle">@Model.Make @Model.Model</p>
-                    <img class="detailImage" src="@Model.ImageUrl" />
+                    <div class="text-center">
+                        <img class="detailImage" src="@Model.ImageUrl" />
+                    </div>
                 </div>
             </div>
-            <div class="col-md-1"></div>
+            <div class="col-md-2"></div>
 
-                <div class="col-md-8">
-                    @using (Html.BeginForm("PlaceCheckout", "Catalog", FormMethod.Post))
-                    {
-                        @Html.HiddenFor(asset => asset.AssetId)
-                        <div>
-                            Please insert a Driver License ID.
-                            @Html.TextBoxFor(asset => asset.DriverLicenseId, new { @class="form-control"})
+            <div class="col-md-7">
+                @using (Html.BeginForm("PlaceCheckout", "Catalog", FormMethod.Post))
+                {
+
+
+                    <div class="row">
+                        <div class="orm-group col-md-6">
+                            @Html.LabelFor(asset => asset.DriverLicenseId, "Please Insert a Driver License ID.", new { @class = "h5" })
+                            @Html.TextBoxFor(asset => asset.DriverLicenseId, new { @class = "form-control", @type = "number" })
                         </div>
-                        <div>
-                            <button type="submit" class="btn btn-lg btn-outline-success">Check Out</button>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(asset => asset.NumberOfRentalDays, "Please Enter the Number of Days.", new { @class = "h5" })
+                            @Html.TextBoxFor(asset => asset.NumberOfRentalDays, new { @class = "form-control", @type = "number" })
                         </div>
-                    }
-                </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <input type="submit" class="btn btn-lg btn-outline-success" value="Check Out" />
+                        </div>
+                    </div>
+
+
+                    @Html.HiddenFor(asset => asset.AssetId)
+                }
+            </div>
             </div>
         </div>
 </div>

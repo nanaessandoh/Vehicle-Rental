@@ -85,7 +85,7 @@ namespace VehicleRental.Service
 
 
 
-        public void CheckOutItem(int assetId, int driverLicenseId)
+        public void CheckOutItem(int assetId, int driverLicenseId, int numberOfRentalDays)
         {
             var item = _context.VehicleRentalAssets
                 .Include(asset => asset.Status)
@@ -110,7 +110,7 @@ namespace VehicleRental.Service
                     VehicleRentalAsset = item,
                     DriverLicense = driverLicense,
                     StartTime = currentTime,
-                    EndTime = GetDefaultCheckout(currentTime)
+                    EndTime = GetCheckoutDate(currentTime, numberOfRentalDays)
 
                 };
                 _context.Add(checkout);
@@ -242,11 +242,11 @@ namespace VehicleRental.Service
                 .FirstOrDefault().HoldPlaced;
         }
 
-        public IEnumerable<Hold> GetCurrentHolds(int id)
+        public IEnumerable<Hold> GetCurrentHolds(int assetId)
         {
             return _context.Holds
                 .Include(asset => asset.VehicleRentalAsset)
-                .Where(asset => asset.VehicleRentalAsset.Id == id);
+                .Where(asset => asset.VehicleRentalAsset.Id == assetId);
         }
 
 
@@ -282,10 +282,10 @@ namespace VehicleRental.Service
             }
         }
 
-        private DateTime GetDefaultCheckout(DateTime currentTime)
+        private DateTime GetCheckoutDate(DateTime currentTime, int numberOfRentalDays)
         {
             // Default CheckIn time is 2 days from Checkout 
-            return currentTime.AddDays(2);
+            return currentTime.AddDays(numberOfRentalDays);
         }
 
         private Checkout GetCheckedoutByAsset(int assetId)

@@ -16,7 +16,7 @@ namespace VehicleRental.Data
         bool IsCheckedout(int assetId);
 
 
-        void CheckOutItem(int assetId, int driverLicenseId);
+        void CheckOutItem(int assetId, int driverLicenseId, int numberOfRentalDays);
         void CheckInItem(int assetId);
         void MarkStolen(int assetId);
         void MarkAvailable(int assetId);

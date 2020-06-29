@@ -84,6 +84,7 @@ namespace VehicleRental.Web.Controllers
             {
                 AssetId = id,
                 DriverLicenseId = 0,
+                NumberOfRentalDays = 0,
                 ImageUrl = assetModel.ImageUrl,
                 Make = assetModel.Make,
                 Model = assetModel.Model,
@@ -95,9 +96,9 @@ namespace VehicleRental.Web.Controllers
 
 
         [HttpPost]
-        public IActionResult PlaceCheckout(int assetId, int driverLicenseId)
+        public IActionResult PlaceCheckout(int assetId, int driverLicenseId, int numberOfRentalDays)
         {
-            _checkoutService.CheckOutItem(assetId, driverLicenseId);
+            _checkoutService.CheckOutItem(assetId, driverLicenseId, numberOfRentalDays);
             return RedirectToAction("Detail", new { id = assetId });
         }
 
