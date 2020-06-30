@@ -1,130 +1,135 @@
 ﻿@model VehicleRental.Web.Models.Catalog.AssetDetailModel
 
-<div class="container">
-    <div class="clearfix detailHeading">
-        <h2 class="text-muted">Vehicle Details</h2>
-    </div>
+@{
+    ViewData["Title"] = "Vehicle Details";
+}
 
-    <div class="jumbotron">
+    <div class="container">
+        <div class="clearfix detailHeading">
+            <h2 class="text-muted">Vehicle Details</h2>
+        </div>
+
+
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="detailImage" src="@Model.ImageUrl" />
+                </div>
+                <div class="col-md-4">
+                    <p id="itemMake"><strong>Make: </strong>@Model.Make</p>
+                    <p id="itemModel"><strong>Model: </strong>@Model.Model</p>
+                    <p id="itemBody"><strong>BodyType: </strong>@Model.BodyType</p>
+                    <p id="itemPassenger"><strong>Passenger (#): </strong> @Model.Passengers</p>
+                    <p id="itemBag"><strong>Bags (#): </strong>@Model.Bags</p>
+                    <p id="itemStatus"><strong>Status: </strong> @Model.Status</p>
+                    <br />
+
+                    @if (Model.Status == "Checked Out")
+                    {
+                        <p><a class="btn btn-outline-success" role="button" asp-controller="Catalog" asp-action="CheckIn" asp-route-id="@Model.AssetId">Check In</a></p>
+                        <p><a class="btn btn-outline-danger" role="button" asp-controller="Catalog" asp-action="MarkStolen" asp-route-id="@Model.AssetId">Mark as Stolen</a></p>
+                    }
+
+                    @if (Model.Status == "Available")
+                    {
+                        <p><a class="btn btn-outline-primary" role="button" asp-controller="Catalog" asp-action="CheckOut" asp-route-id="@Model.AssetId">Check Out</a></p>
+                        <p><a class="btn btn-outline-secondary" role="button" asp-controller="Catalog" asp-action="PlaceHold" asp-route-id="@Model.AssetId">Place on Hold</a></p>
+                    }
+
+                    @if (Model.Status == "Stolen")
+                    {
+                        <p><a class="btn btn-outline-success" role="button" asp-controller="Catalog" asp-action="MarkAvailable" asp-route-id="@Model.AssetId">Available Now</a></p>
+                        <div class="alert alert-danger" role="alert">The Vehicle (@Model.VIN) has been reported lost. Issue escalated to relevent authority</div>
+                    }
+
+                    @if (Model.Status == "On Hold")
+                    {
+                        <p><a class="btn btn-outline-primary" role="button" asp-controller="Catalog" asp-action="MarkAvailable" asp-route-id="@Model.AssetId">Available Now</a></p>
+                    }
+
+                </div>
+                <div class="col-md-4">
+                    <p id="itemPatron"><strong>Patron Name: </strong> @Model.PatronName</p>
+                    @if (Model.LatestCheckout == null)
+                    {
+                        <p id="itemLCheckout"><strong>Latest Checkout: </strong> N/A</p>
+                    }
+                    else
+                    {
+                        <p id="itemLCheckout"><strong>Latest Checkout: </strong> @Model.LatestCheckout.StartTime</p>
+                    }
+                    <p id="itemVIN"><strong>VIN: </strong> @Model.VIN</p>
+                    <p id="itemLocation"><strong>Location: </strong> @Model.CurrentLocation</p>
+                    <p id="itemPrice"><strong>Price Per Day (CAD): </strong> @Model.Cost</p>
+                    <p id="itemOption"><strong>Options: </strong>@Model.Options</p>
+                </div>
+            </div>
+        </div>
         <div class="row">
-            <div class="col-md-4">
-                <img class="detailImage" src="@Model.ImageUrl" />
-            </div>
-            <div class="col-md-4">
-                <p id="itemMake"><strong>Make: </strong>@Model.Make</p>
-                <p id="itemModel"><strong>Model: </strong>@Model.Model</p>
-                <p id="itemBody"><strong>BodyType: </strong>@Model.BodyType</p>
-                <p id="itemPassenger"><strong>Passenger (#): </strong> @Model.Passengers</p>
-                <p id="itemBag"><strong>Bags (#): </strong>@Model.Bags</p>
-                <p id="itemStatus"><strong>Status: </strong> @Model.Status</p>
-                <br />
-
-                @if (Model.Status == "Checked Out")
+            <div class="col-md-7">
+                <h4>Checkout History</h4>
+                @if (Model.CheckoutHistoryCount == 0)
                 {
-                    <p><a class="btn btn-lg btn-outline-success" role="button" asp-controller="Catalog" asp-action="CheckIn" asp-route-id="@Model.AssetId">Check In</a></p>
-                    <p><a class="btn btn-lg btn-outline-danger" role="button" asp-controller="Catalog" asp-action="MarkStolen" asp-route-id="@Model.AssetId">Mark as Stolen</a></p>
-                }
-
-                @if (Model.Status == "Available")
-                {
-                    <p><a class="btn btn-lg btn-outline-primary" role="button" asp-controller="Catalog" asp-action="CheckOut" asp-route-id="@Model.AssetId">Check Out</a></p>
-                    <p><a class="btn btn-lg btn-outline-secondary" role="button" asp-controller="Catalog" asp-action="PlaceHold" asp-route-id="@Model.AssetId">Place on Hold</a></p>
-                }
-
-                @if (Model.Status == "Stolen")
-                {
-                    <p><a class="btn btn-lg btn-outline-success" role="button" asp-controller="Catalog" asp-action="MarkAvailable" asp-route-id="@Model.AssetId">Available Now</a></p>
-                    <div class="alert alert-danger" role="alert">The Vehicle (@Model.VIN) has been reported lost. Issue escalated to relevent authority</div>
-                }
-
-                @if (Model.Status == "On Hold")
-                {
-                    <p><a class="btn btn-lg btn-outline-primary" role="button" asp-controller="Catalog" asp-action="MarkAvailable" asp-route-id="@Model.AssetId">Available Now</a></p>
-                }
-
-            </div>
-            <div class="col-md-4">
-                <p id="itemPatron"><strong>Patron Name: </strong> @Model.PatronName</p>
-                @if (Model.LatestCheckout == null)
-                {
-                    <p id="itemLCheckout"><strong>Latest Checkout: </strong> N/A</p>
+                    <p>No Checkout History Available For The Vehicle</p>
                 }
                 else
                 {
-                    <p id="itemLCheckout"><strong>Latest Checkout: </strong> @Model.LatestCheckout.StartTime</p>
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Check Out Date</th>
+                                <th>Return Date</th>
+                                <th>License ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var checkout in @Model.CheckoutHistory)
+                            {
+                                <tr>
+                                    <td>
+                                        @checkout.CheckedOut
+                                    </td>
+                                    <td>
+                                        @checkout.CheckedIn
+                                    </td>
+                                    <td>
+                                        @checkout.DriverLicense.Id
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 }
-                <p id="itemVIN"><strong>VIN: </strong> @Model.VIN</p>
-                <p id="itemLocation"><strong>Location: </strong> @Model.CurrentLocation</p>
-                <p id="itemPrice"><strong>Price Per Day (CAD): </strong> @Model.Cost</p>
-                <p id="itemOption"><strong>Options: </strong>@Model.Options</p>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-7">
-            <h4>Checkout History</h4>
-            @if (Model.CheckoutHistoryCount == 0)
-            {
-                 <p>No Checkout History Available For The Vehicle</p>
-            }
-            else
-            {
-               <table class="table table-bordered table-hover table-condensed">
-            <thead>
-                <tr>
-                    <th>Check Out Date</th>
-                    <th>Return Date</th>
-                    <th>License ID</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var checkout in @Model.CheckoutHistory)
-                {
-                    <tr>
-                        <td>
-                            @checkout.CheckedOut
-                        </td>
-                        <td>
-                            @checkout.CheckedIn
-                        </td>
-                        <td>
-                            @checkout.DriverLicense.Id
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-            }
-            
-        </div>
-        <div class="col-md-5">
-            <h4>Current Holds</h4>
-            @if (Model.HoldHistoryCount == 0)
-            {
-                <p>No Hold History Available For The Vehicle</p>
-            }
-            else
-            {
-              <table class="table table-bordered table-hover table-condensed">
-            <thead>
-                <tr>
-                    <th class="text-center">Hold Placed</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var hold in @Model.HoldHistory)
-                {
-                    <tr>
-                        <td>
-                            @hold.HoldPlaced
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-            }
-            
-        </div>
 
+            </div>
+            <div class="col-md-5">
+                <h4>Current Holds</h4>
+                @if (Model.HoldHistoryCount == 0)
+                {
+                    <p>No Hold History Available For The Vehicle</p>
+                }
+                else
+                {
+                    <table class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Hold Placed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var hold in @Model.HoldHistory)
+                            {
+                                <tr>
+                                    <td>
+                                        @hold.HoldPlaced
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+
+        </div>
     </div>
-</div>
