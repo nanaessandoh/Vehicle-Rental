@@ -23,7 +23,9 @@ namespace VehicleRental.Service
 
         public IEnumerable<Checkout> GetAll()
         {
-            return _context.Checkouts;
+            return _context.Checkouts
+                .Include(asset => asset.VehicleRentalAsset)
+                .Include(asset => asset.DriverLicense);
         }
 
         public Checkout GetById(int checkoutId)
@@ -87,6 +89,12 @@ namespace VehicleRental.Service
 
         public void CheckOutItem(int assetId, int driverLicenseId, int numberOfRentalDays)
         {
+            var currentTime = DateTime.Now;
+
+            var driverLicense = _context.DriverLicenses
+                .Include(asset => asset.Checkouts)
+                .FirstOrDefault(asset => asset.Id == driverLicenseId);
+
             var item = _context.VehicleRentalAssets
                 .Include(asset => asset.Status)
                 .Include(asset => asset.Location)
@@ -95,14 +103,9 @@ namespace VehicleRental.Service
             // Check if Asset is Available and not Checked Out
             if (item.Status.Name == "Available")
             {
+
                 // Update Asset Status as Checked Out
                 UpdateAssetStatus(assetId, "Checked Out");
-
-                var currentTime = DateTime.Now;
-
-                var driverLicense = _context.DriverLicenses
-                    .Include(asset => asset.Checkouts)
-                    .FirstOrDefault(asset => asset.Id == driverLicenseId);
 
                 // Add New Checkout to the Table
                 var checkout = new Checkout
@@ -160,6 +163,7 @@ namespace VehicleRental.Service
                 .Include(asset => asset.Status)
                 .Include(asset => asset.Location)
                 .FirstOrDefault(asset => asset.Id == assetId);
+
             // Check If Asset is Checked Out
             if (item.Status.Name == "Checked Out")
             {
@@ -264,7 +268,10 @@ namespace VehicleRental.Service
 
         private void CloseExistingCheckoutHistory(int assetId, DateTime currentTime)
         {
-            var history = _context.CheckoutHistories.FirstOrDefault(asset => asset.Id == assetId && asset.CheckedIn == null);
+            var history = _context.CheckoutHistories
+                .Include(asset => asset.VehicleRentalAsset)
+                .Include(asset => asset.DriverLicense)
+                .FirstOrDefault(asset => asset.VehicleRentalAsset.Id == assetId && asset.CheckedIn == null);
             if (history != null)
             {
                 _context.Update(history);
@@ -274,7 +281,10 @@ namespace VehicleRental.Service
 
         private void RemoveExistingCheckout(int assetId)
         {
-            var checkout = _context.Checkouts.FirstOrDefault(asset => asset.Id == assetId); ;
+            var checkout = _context.Checkouts
+                .Include(asset => asset.VehicleRentalAsset)
+                .Include(asset => asset.DriverLicense)
+                .FirstOrDefault(asset => asset.VehicleRentalAsset.Id == assetId); ;
 
             if (checkout != null)
             {

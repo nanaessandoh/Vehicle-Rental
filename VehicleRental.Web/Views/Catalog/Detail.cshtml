@@ -37,7 +37,7 @@
                     <div class="alert alert-danger" role="alert">The Vehicle (@Model.VIN) has been reported lost. Issue escalated to relevent authority</div>
                 }
 
-                @if (Model.Status == "Hold")
+                @if (Model.Status == "On Hold")
                 {
                     <p><a class="btn btn-lg btn-outline-primary" role="button" asp-controller="Catalog" asp-action="MarkAvailable" asp-route-id="@Model.AssetId">Available Now</a></p>
                 }

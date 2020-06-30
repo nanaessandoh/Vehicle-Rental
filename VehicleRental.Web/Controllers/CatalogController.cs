@@ -31,7 +31,7 @@ namespace VehicleRental.Web.Controllers
             var listingResult = assetModels
                 .Select(result => new AssetIndexListingModel 
                 {
-                    Id = result.Id,
+                    AssetId = result.Id,
                     Make = result.Make,
                     Model = result.Model,  
                     ImageUrl = result.ImageUrl,
@@ -102,32 +102,28 @@ namespace VehicleRental.Web.Controllers
             return RedirectToAction("Detail", new { id = assetId });
         }
 
-        [HttpPost]
-        public IActionResult CheckIn(int assetId, int driverLicenseId)
+        public IActionResult CheckIn(int id)
         {
-            _checkoutService.CheckInItem(assetId);
-            return RedirectToAction("Detail", new { id = assetId });
+            _checkoutService.CheckInItem(id);
+            return RedirectToAction("Detail", new { id = id });
         }
 
-        [HttpPost]
-        public IActionResult PlaceHold(int assetId, int driverLicenseId)
+        public IActionResult PlaceHold(int id)
         {
-            _checkoutService.PlaceHold(assetId);
-            return RedirectToAction("Detail", new { id = assetId });
+            _checkoutService.PlaceHold(id);
+            return RedirectToAction("Detail", new { id = id });
         }
 
-        [HttpPost]
-        public IActionResult MarkStolen(int assetId, int driverLicenseId)
+        public IActionResult MarkStolen(int id)
         {
-            _checkoutService.MarkStolen(assetId);
-            return RedirectToAction("Detail", new { id = assetId });
+            _checkoutService.MarkStolen(id);
+            return RedirectToAction("Detail", new { id = id });
         }
 
-        [HttpPost]
-        public IActionResult MarkAvailable(int assetId, int driverLicenseId)
+        public IActionResult MarkAvailable(int id)
         {
-            _checkoutService.MarkAvailable(assetId);
-            return RedirectToAction("Detail", new { id = assetId });
+            _checkoutService.MarkAvailable(id);
+            return RedirectToAction("Detail", new { id = id });
         }
     }
 }
