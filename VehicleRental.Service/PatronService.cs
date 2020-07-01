@@ -59,5 +59,11 @@ namespace VehicleRental.Service
                 .Where(asset => asset.DriverLicense.Id == driverLicenseId)
                 .OrderByDescending(asset => asset.StartTime);
         }
+
+        string IPatron.GetPatronName(int patronId)
+        {
+            var patron = GetById(patronId);
+            return patron.FirstName + " " + patron.LastName;
+        }
     }
 }

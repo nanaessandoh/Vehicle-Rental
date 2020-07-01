@@ -26,9 +26,9 @@ namespace VehicleRental.Web.Controllers
         }
         public IActionResult Index()
         {
-            var assetModels = _assetsService.GetAll();
+            var allAssetModel = _assetsService.GetAll();
 
-            var listingResult = assetModels
+            var listingResult = allAssetModel
                 .Select(result => new AssetIndexListingModel 
                 {
                     AssetId = result.Id,

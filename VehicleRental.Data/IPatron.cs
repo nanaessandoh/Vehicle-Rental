@@ -10,6 +10,7 @@ namespace VehicleRental.Data
         Patron GetById(int patronId);
         IEnumerable<Patron> GetAll();
         void Add(Patron newPatron);
+        string GetPatronName(int patronId);
         IEnumerable<CheckoutHistory> GetCheckoutHistories(int patronId);
         IEnumerable<Checkout> GetCheckouts(int patronId);
     }
