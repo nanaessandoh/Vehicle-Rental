@@ -65,11 +65,6 @@ body {
     color: #e9e8e7;
 }
 
-.splash {
-    background-image: url("/images/catalog.png");
-    background-repeat: no-repeat;
-    min-height: 200px;
-}
 
 .card-icon {
     color: #777;
@@ -106,33 +101,20 @@ body {
     padding: 4px;
 }
 
-#catalog {
-    background: url('/images/books.jpg') bottom right 15% no-repeat #555;
-}
 
 #catalogIndexTable {
     font-size: 1.3em;
 }
 
-    #catalogIndexTable td {
-        vertical-align: middle;
-    }
+#catalogIndexTable td {
+   vertical-align: middle;    
+
+}
 
     #catalogIndexTable tr:hover {
         background-color: #eee;
     }
 
-#patrons {
-    background: url('/images/patron.jpeg') bottom left 15% no-repeat #555;
-}
-
-.branchInfo {
-    padding-top: 30px;
-}
-
-#branches {
-    background: url('/images/bldg.jpeg') bottom right 15% no-repeat #555;
-}
 
 #assets {
     margin: 0 auto;

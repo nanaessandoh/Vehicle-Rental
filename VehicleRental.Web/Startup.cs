@@ -37,6 +37,7 @@ namespace VehicleRental.Web
                 => options.UseSqlServer(Configuration.GetConnectionString("VehicleRentalConnection")));
             services.AddScoped<IVehicleRentalAsset, VehicleRentalAssetService>();
             services.AddScoped<ICheckout, CheckoutService>();
+            services.AddScoped<IPatron, PatronService>();
 
         }
 
