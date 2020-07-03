@@ -60,15 +60,16 @@ namespace VehicleRental.Service
                 .OrderByDescending(asset => asset.StartTime);
         }
 
-        public double OverdueFee(int patronId)
+        public DriverLicense GetDriverLicense(int patronId)
         {
             var patron = GetById(patronId);
             var driverLicenseId = patron.DriverLicense.Id;
 
             return _context.DriverLicenses
-                .FirstOrDefault(asset => asset.Id == driverLicenseId).Fees;
+                .FirstOrDefault(asset => asset.Id == driverLicenseId);
 
         }
+
 
         string IPatron.GetPatronName(int patronId)
         {

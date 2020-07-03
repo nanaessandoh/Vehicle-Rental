@@ -11,7 +11,7 @@ namespace VehicleRental.Data
         IEnumerable<Patron> GetAll();
         void Add(Patron newPatron);
         string GetPatronName(int patronId);
-        double OverdueFee(int patronId);
+        DriverLicense GetDriverLicense(int patronId);
         IEnumerable<CheckoutHistory> GetCheckoutHistories(int patronId);
         IEnumerable<Checkout> GetCheckouts(int patronId);
     }

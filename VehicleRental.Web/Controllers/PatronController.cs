@@ -31,6 +31,7 @@ namespace VehicleRental.Web.Controllers
                     Name = _patronService.GetPatronName(result.Id),
                     Address = result.Address,
                     Number = result.TelephoneNumber,
+                    OverdueFees = _patronService.GetDriverLicense(result.Id).Fees,
                     PatronRentalBranch = result.VehicleRentalBranch.Name
                 });
 

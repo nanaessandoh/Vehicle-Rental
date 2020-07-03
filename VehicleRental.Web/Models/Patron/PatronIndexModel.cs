@@ -17,6 +17,7 @@ namespace VehicleRental.Web.Models.Patron
         public string Name { get; set; }
         public string Address { get; set; }
         public string Number { get; set; }
+        public double OverdueFees { get; set; }
         public string PatronRentalBranch { get; set; }
 
     }

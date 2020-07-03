@@ -102,18 +102,18 @@ body {
 }
 
 
-#catalogIndexTable {
+#IndexTable {
     font-size: 1.3em;
 }
 
-#catalogIndexTable td {
+#IndexTable td {
    vertical-align: middle;    
 
 }
 
-    #catalogIndexTable tr:hover {
-        background-color: #eee;
-    }
+#IndexTable tr:hover {
+  background-color: #eee;
+}
 
 
 #assets {

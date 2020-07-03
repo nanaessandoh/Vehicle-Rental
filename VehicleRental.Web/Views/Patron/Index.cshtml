@@ -1,0 +1,40 @@
+﻿@model VehicleRental.Web.Models.Patron.PatronIndexModel
+
+@{
+    ViewData["Title"] = "Customers";
+}
+
+
+    <div id="assets">
+        <div class=" clearfix detailHeading">
+            <h2 class="text-muted">Customers Directory</h2>
+        </div>
+
+        <div id="assetsTable">
+            <table class="table table-condensed" id="IndexTable">
+                <thead>
+                    <tr>
+                        <th class="text-center">Profile Link</th>
+                        <th class="text-center">Full Name</th>
+                        <th class="text-center">Address</th>
+                        <th class="text-center">Phone Number</th>
+                        <th class="text-center">Overdue Feees</th>
+                        <th class="text-center">Rental Branch</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var asset in Model.Patrons)
+                    {
+                    <tr class="assetRow">
+                        <td class=""><a asp-controller="Patron" asp-action="Detail" asp-route-id="@asset.PatronId">(Profile)</a></td>
+                        <td class="">@asset.Name</td>
+                        <td class="">@asset.Address</td>
+                        <td class="">@asset.Number</td>
+                        <td class="">@asset.OverdueFees</td>
+                        <td class="">@asset.PatronRentalBranch</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
