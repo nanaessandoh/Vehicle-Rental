@@ -42,5 +42,27 @@ namespace VehicleRental.Web.Controllers
 
             return View(model);
         }
+
+
+        public IActionResult Detail(int id)
+        {
+            var patronModel = _patronService.GetById(id);
+
+            var model = new PatronDetailModel
+            {
+                PatronId = patronModel.Id,
+                Name = _patronService.GetPatronName(id),
+                Address = patronModel.Address,
+                Number = patronModel.TelephoneNumber,
+                LicenseID = _patronService.GetDriverLicense(id).LicenseID,
+                IssueDate = _patronService.GetDriverLicense(id).IssueDate,
+                ExpiryDate = _patronService.GetDriverLicense(id).ExpiryDate,
+                Checkout = _patronService.GetCheckouts(id),
+                CheckoutHistory = _patronService.GetCheckoutHistories(id)
+            };
+
+
+            return View(model);
+        }
     }
 }
