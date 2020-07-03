@@ -13,6 +13,8 @@ namespace VehicleRental.Data.Models
         [Required]
         public DriverLicense DriverLicense { get; set; }
         [Required]
+        public string FullName { get; set;}
+        [Required]
         public DateTime CheckedOut { get; set; }
         public DateTime? CheckedIn { get; set; }
     }

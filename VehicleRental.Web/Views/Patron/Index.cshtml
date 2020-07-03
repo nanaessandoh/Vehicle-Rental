@@ -26,7 +26,13 @@
                     @foreach (var asset in Model.Patrons)
                     {
                     <tr class="assetRow">
-                        <td class=""><a asp-controller="Patron" asp-action="Detail" asp-route-id="@asset.PatronId">(Profile)</a></td>
+                        <td class="">
+                            <div>
+                                <a asp-controller="Patron" asp-action="Detail" asp-route-id="@asset.PatronId">
+                                    <img src="~/images/home/user.png" class="profileCell" />
+                                </a>
+                            </div>
+                        </td>
                         <td class="">@asset.Name</td>
                         <td class="">@asset.Address</td>
                         <td class="">@asset.Number</td>

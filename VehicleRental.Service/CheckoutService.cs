@@ -87,6 +87,7 @@ namespace VehicleRental.Service
 
 
 
+
         public void CheckOutItem(int assetId, int driverLicenseId, int numberOfRentalDays)
         {
             var currentTime = DateTime.Now;
@@ -99,6 +100,8 @@ namespace VehicleRental.Service
                 .Include(asset => asset.Status)
                 .Include(asset => asset.Location)
                 .FirstOrDefault(asset => asset.Id == assetId);
+
+            var fullname = GetPatronFullName(driverLicenseId);
 
             // Check if Asset is Available and not Checked Out
             if (item.Status.Name == "Available")
@@ -124,6 +127,7 @@ namespace VehicleRental.Service
                     VehicleRentalAsset = item,
                     DriverLicense = driverLicense,
                     CheckedOut = currentTime,
+                    FullName = fullname
                 };
                 _context.Add(CheckoutHistory);
 
@@ -306,6 +310,13 @@ namespace VehicleRental.Service
                 .FirstOrDefault(asset => asset.VehicleRentalAsset.Id == assetId);
         }
 
+        public string GetPatronFullName(int DriverLicenseId)
+        {
+            var patron = _context.Patrons
+                 .Include(asset => asset.DriverLicense)
+                 .FirstOrDefault(asset => asset.DriverLicense.Id == DriverLicenseId);
+            return patron.FirstName + " " + patron.LastName;
+        }
 
     }
 }

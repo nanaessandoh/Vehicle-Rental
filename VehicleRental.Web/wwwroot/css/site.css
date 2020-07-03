@@ -139,6 +139,12 @@ body {
     width: 180px;
 }
 
+.profileCell {
+    width: 20px;
+    height: 20px;
+}
+
+
 #assetsTable td {
     text-align: center;
     border-bottom: 1px solid #ddd;

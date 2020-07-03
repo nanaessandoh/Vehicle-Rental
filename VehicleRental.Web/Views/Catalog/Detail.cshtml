@@ -56,7 +56,7 @@
                     }
                     else
                     {
-                        <p id="itemLCheckout"><strong>Latest Checkout: </strong> @Model.LatestCheckout.StartTime</p>
+                        <p id="itemLCheckout"><strong>Latest Checkout: </strong> @Model.LatestCheckout.StartTime.ToString("ddd, yy-dd-MM - HH:mm tt")</p>
                     }
                     <p id="itemVIN"><strong>VIN: </strong> @Model.VIN</p>
                     <p id="itemLocation"><strong>Location: </strong> @Model.CurrentLocation</p>
@@ -66,7 +66,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-8">
                 <h4>Checkout History</h4>
                 @if (Model.CheckoutHistoryCount == 0)
                 {
@@ -79,30 +79,37 @@
                             <tr>
                                 <th>Check Out Date</th>
                                 <th>Return Date</th>
+                                <th>Full Name</th>
                                 <th>License ID</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var checkout in @Model.CheckoutHistory)
                             {
-                                <tr>
-                                    <td>
-                                        @checkout.CheckedOut
-                                    </td>
-                                    <td>
-                                        @checkout.CheckedIn
-                                    </td>
-                                    <td>
-                                        @checkout.DriverLicense.Id
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    @checkout.CheckedOut.ToString("dddd, yy-dd-MM - HH:mm tt")
+                                </td>
+                                <td>
+                                    @if (checkout.CheckedIn != null)
+                                    {
+                                        @checkout.CheckedIn.Value.ToString("dddd, yy-dd-MM - HH:mm tt")
+                                    }
+                                </td>
+                                <td>
+                                    @checkout.FullName
+                                </td>
+                                <td>
+                                    @checkout.DriverLicense.LicenseID
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
                 }
 
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <h4>Current Holds</h4>
                 @if (Model.HoldHistoryCount == 0)
                 {
@@ -121,7 +128,7 @@
                             {
                                 <tr>
                                     <td>
-                                        @hold.HoldPlaced
+                                        @hold.HoldPlaced.ToString("dddd, yy-dd-MM - HH:mm tt")
                                     </td>
                                 </tr>
                             }
