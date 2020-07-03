@@ -18,18 +18,18 @@ VALUES
 
 SELECT * FROM [dbo].[VehicleRentalBranches]
 
-INSERT INTO [dbo].[DriverLicenses]([Fees],[ExpiryDate],[IssueDate])
+INSERT INTO [dbo].[DriverLicenses]([Fees],[ExpiryDate],[IssueDate],[LicenseID])
      VALUES
-(0.00,'2025-12-30','2017-10-29'),
-(0.00,'2024-08-01','2016-06-19'),
-(0.00,'2023-03-03','2015-02-18'),
-(5.55,'2027-06-05','2020-06-16'),
-(0.52,'2021-10-24','2019-03-26'),
-(6.87,'2023-06-23','2016-06-02'),
-(45.50,'2024-11-14','2013-08-09'),
-(0.00,'2022-01-13','2014-09-01'),
-(2.85,'2021-05-29','2017-12-27'),
-(0.00,'2023-12-04','2019-10-22');
+(87.00,'2025-12-30','2017-10-29','EJDH232323'),
+(0.00,'2024-08-01','2016-06-19','DJ43435KM3'),
+(0.00,'2023-03-03','2015-02-18','RNEWN2342K'),
+(156.55,'2027-06-05','2020-06-16','VEJNWK2323'),
+(275.52,'2021-10-24','2019-03-26','SLJNWE2323'),
+(304.87,'2023-06-23','2016-06-02','88WFEWBBBW'),
+(95.50,'2024-11-14','2013-08-09','BWEFYB233'),
+(0.00,'2022-01-13','2014-09-01','HKBBHKHH66'),
+(265.85,'2021-05-29','2017-12-27','7890SADSAA'),
+(0.00,'2023-12-04','2019-10-22','WEWF22435F');
 
 SELECT * FROM [dbo].[DriverLicenses]
 
@@ -85,30 +85,30 @@ INSERT INTO [dbo].[VehicleRentalAssets]([Make],[Model],[Cost],[ImageUrl],[Locati
 ('Nissan','Maxima',54,'/images/cars/22.png',7,'Car','072Q132J095','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,8,2),
 ('Nissan','Qashqai',76,'/images/cars/23.png',8,'Car','322R363J136','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,9,2),
 ('Volkswagen','Jetta',43,'/images/cars/24.png',9,'Car','586E421G133','Saloon','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,3,2),
-('BMW','3 Series',50,'/images/cars/1.png',10,'Car','228G882A965','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,4,2),
-('BMW','X1',58,'/images/cars/2.png',11,'Car','151T748K423','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,3,2),
-('Cadillac','XTS',78,'/images/cars/3.png',12,'Car','	265T101H816','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,0,2),
-('Chevrolet','Malibu',45,'/images/cars/4.png',13,'Car','479K660S136','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,2,2),
-('Chevrolet','Spark',50,'/images/cars/5.png',14,'Car','504Y723J636','Saloon','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',4,5,2),
-('Chevrolet','Suburban',78,'/images/cars/6.png',15,'Car','712J310E986','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,2,2),
-('Chevrolet','Tahoe',80,'/images/cars/7.png',1,'Car','149J300N626','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,5,2),
-('Chevrolet','Colorado',54,'/images/cars/8.png',2,'Car','077S570B612','Truck','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,5,2),
-('Chrysler','300S',60,'/images/cars/9.png',3,'Car','093W818E276','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,5,2),
-('Dodge','Durango',84,'/images/cars/10.png',4,'Car','542H870N175','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,1,2),
-('Dodge','Grand Caravan',52,'/images/cars/11.png',5,'Car','541E540H951','Van','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',7,0,2),
-('Ford','Edge',59,'/images/cars/12.png',6,'Car','599Y294E923','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,4,2),
-('Ford','Escape',49,'/images/cars/13.png',7,'Car','067T854K315','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,4,2),
-('Ford','F150 Super Crew',69,'/images/cars/14.png',8,'Car','652D109Z596','Truck','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,2,2),
-('Ford','Mustang',77,'/images/cars/15.png',9,'Car','462U282N211','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,2,2),
-('Ford','Transit Cargo',72,'/images/cars/16.png',10,'Car','323F416Y842','Van','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',2,2,2),
-('Hyundai','Accent',45,'/images/cars/17.png',11,'Car','697D321N891','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,6,2),
-('Hyundai','Elantra',68,'/images/cars/18.png',12,'Car','577T127K772','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,6,2),
-('Jeep','Wrangler',54,'/images/cars/19.png',13,'Car','454R023Z185','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,2,2),
-('Kia','Forte',78,'/images/cars/20.png',14,'Car','337N363K808','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,2,2),
-('MINI','Countryman',55,'/images/cars/21.png',15,'Car','419R595B723','Saloon','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,8,2),
-('Nissan','Maxima',54,'/images/cars/22.png',1,'Car','072Q132J095','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,8,2),
-('Nissan','Qashqai',76,'/images/cars/23.png',2,'Car','322R363J136','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,9,2),
-('Volkswagen','Jetta',43,'/images/cars/24.png',3,'Car','586E421G133','Saloon','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,3,2);
+('BMW','3 Series',50,'/images/cars/1.png',10,'Car','228G8FHJ965','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,4,2),
+('BMW','X1',58,'/images/cars/2.png',11,'Car','151T74BYG23','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,3,2),
+('Cadillac','XTS',78,'/images/cars/3.png',12,'Car','2VYU101H816','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,0,2),
+('Chevrolet','Malibu',45,'/images/cars/4.png',13,'Car','47BUB0S136','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,2,2),
+('Chevrolet','Spark',50,'/images/cars/5.png',14,'Car','504VJHB3J636','Saloon','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',4,5,2),
+('Chevrolet','Suburban',78,'/images/cars/6.png',15,'Car','71BHH310E986','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,2,2),
+('Chevrolet','Tahoe',80,'/images/cars/7.png',1,'Car','149JBKBK626','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,5,2),
+('Chevrolet','Colorado',54,'/images/cars/8.png',2,'Car','07UBKU70B612','Truck','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,5,2),
+('Chrysler','300S',60,'/images/cars/9.png',3,'Car','093W8KBKBJ76','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,5,2),
+('Dodge','Durango',84,'/images/cars/10.png',4,'Car','542HBUBBU175','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,1,2),
+('Dodge','Grand Caravan',52,'/images/cars/11.png',5,'Car','54HJVRRH951','Van','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',7,0,2),
+('Ford','Edge',59,'/images/cars/12.png',6,'Car','599YJBJU23','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,4,2),
+('Ford','Escape',49,'/images/cars/13.png',7,'Car','06JKUK4K315','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,4,2),
+('Ford','F150 Super Crew',69,'/images/cars/14.png',8,'Car','652DKBKHB596','Truck','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,2,2),
+('Ford','Mustang',77,'/images/cars/15.png',9,'Car','462U28KJNK1','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,2,2),
+('Ford','Transit Cargo',72,'/images/cars/16.png',10,'Car','323FKKBJ842','Van','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',2,2,2),
+('Hyundai','Accent',45,'/images/cars/17.png',11,'Car','697D32VJNJ1','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,6,2),
+('Hyundai','Elantra',68,'/images/cars/18.png',12,'Car','577T1HBKK72','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,6,2),
+('Jeep','Wrangler',54,'/images/cars/19.png',13,'Car','454R02HBHID5','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,2,2),
+('Kia','Forte',78,'/images/cars/20.png',14,'Car','337N367GVG8','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,2,2),
+('MINI','Countryman',55,'/images/cars/21.png',15,'Car','YVT6788595B723','Saloon','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,8,2),
+('Nissan','Maxima',54,'/images/cars/22.png',1,'Car','072QJHVBYJV95','Sedan','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,8,2),
+('Nissan','Qashqai',76,'/images/cars/23.png',2,'Car','322R3UVTYCR6','SUV','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,9,2),
+('Volkswagen','Jetta',43,'/images/cars/24.png',3,'Car','586EBJBYY33','Saloon','Heated Seats, Parking Assist, CD,Radio, Air Conditioning, ABS, Satellite Navigation',5,3,2);
 
 
 SELECT * FROM [dbo].[VehicleRentalAssets]
