@@ -60,6 +60,7 @@ namespace VehicleRental.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -14,6 +14,8 @@ namespace VehicleRental.Data.Models
         [Required]
         public string Model { get; set; }
         [Required]
+        public string VIN { get; set; }
+        [Required]
         public Status Status { get; set; }
         [Required]
         public double Cost { get; set; }

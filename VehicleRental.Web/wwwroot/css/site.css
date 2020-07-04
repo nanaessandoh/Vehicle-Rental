@@ -140,8 +140,8 @@ body {
 }
 
 .profileCell {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
 }
 
 
@@ -240,6 +240,11 @@ body {
 .detailImage {
     width: 300px;
     padding-bottom: 6px;
+}
+
+.patronDetailImage {
+    width: 250px;
+    padding-bottom: 10px;
 }
 
 .detailInfo {

@@ -7,8 +7,7 @@ namespace VehicleRental.Data.Models
 {
     public class Car : VehicleRentalAsset
     {
-        [Required]
-        public string VIN { get; set; }
+
         [Required]
         public string BodyType { get; set; }
         [Required]

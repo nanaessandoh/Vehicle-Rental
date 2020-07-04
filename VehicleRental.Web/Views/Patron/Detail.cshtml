@@ -13,7 +13,7 @@
         <div class="jumbotron">
             <div class="row">
                 <div class="col-md-4">
-                    <img class="detailImage" src="~/images/home/user-O.png" />
+                    <img class="patronDetailImage" src="~/images/home/user-O.png" />
                 </div>
                 <div class="col-md-4">
                     <p id="itemMake"><strong>Full Name: </strong>@Model.Name</p>
@@ -52,6 +52,7 @@
                         <thead>
                             <tr>
                                 <th>Vehicle</th>
+                                <th>VIN</th>
                                 <th>Check Out Date</th>
                                 <th>Return Date</th>
                             </tr>
@@ -61,9 +62,8 @@
                             {
                             <tr>
                                 <td>@checkoutH.VehicleRentalAsset.Make @checkoutH.VehicleRentalAsset.Model</td>
-                                <td>
-                                    @checkoutH.CheckedOut.ToString("dddd, yy-dd-MM - HH:mm tt")
-                                </td>
+                                <td>@checkoutH.VehicleRentalAsset.VIN</td>
+                                <td>@checkoutH.CheckedOut.ToString("dddd, yy-dd-MM - HH:mm tt")</td>
                                 <td>
                                     @if (checkoutH.CheckedIn != null)
                                     {
@@ -89,6 +89,7 @@
                         <thead>
                             <tr>
                                 <th>Vehicle</th>
+                                <th>VIN</th>
                                 <th>Checkout Date</th>
                             </tr>
                         </thead>
@@ -97,6 +98,7 @@
                             {
                             <tr>
                                 <td>@checkout.VehicleRentalAsset.Make @checkout.VehicleRentalAsset.Model</td>
+                                <td>@checkout.VehicleRentalAsset.VIN</td>
                                 <td>@checkout.StartTime.ToString("dddd, yy-dd-MM - HH:mm tt")</td>
                             </tr>
                             }

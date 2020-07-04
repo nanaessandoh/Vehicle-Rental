@@ -36,14 +36,6 @@ namespace VehicleRental.Service
             _context.SaveChanges();
         }
 
-        public string GetVIN(int assetId)
-        {
-            // Car (Discriminator)
-            if (GetType(assetId) != "Car") return "N/A";
-            var car = (Car)GetById(assetId);
-            return car.VIN;
-        }
-
         public string GetBodyType(int assetId)
         {
             // Car (Discriminator)
@@ -92,17 +84,6 @@ namespace VehicleRental.Service
             return isCar != null ? "Car" : "Unknown";
 
         }
-
-        public string GetMake(int assetId)
-        {
-            return _context.VehicleRentalAssets.First(asset => asset.Id == assetId).Make;
-        }
-
-        public string GetModel(int assetId)
-        {
-            return _context.VehicleRentalAssets.First(asset => asset.Id == assetId).Model;
-        }
-
 
     }
 }

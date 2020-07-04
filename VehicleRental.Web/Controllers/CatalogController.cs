@@ -54,6 +54,7 @@ namespace VehicleRental.Web.Controllers
                 AssetId = id,
                 Make = assetModels.Make,
                 Model = assetModels.Model,
+                VIN = assetModels.VIN,
                 ImageUrl = assetModels.ImageUrl,
                 Status = assetModels.Status.Name,
                 Cost = assetModels.Cost,
@@ -61,7 +62,6 @@ namespace VehicleRental.Web.Controllers
                 Options = _assetsService.GetOptions(id),
                 Passengers = _assetsService.GetPassengers(id),
                 Bags = _assetsService.GetBags(id),
-                VIN = _assetsService.GetVIN(id),
                 CurrentLocation = _assetsService.GetVehicleRentalLocation(id).Name,
                 PatronName = _checkoutService.GetCurrentCheckoutPatron(id),
                 LatestCheckout = _checkoutService.GetLatestCheckout(id),
@@ -96,8 +96,13 @@ namespace VehicleRental.Web.Controllers
         [HttpPost]
         public IActionResult PlaceCheckout(int assetId, int driverLicenseId, int numberOfRentalDays)
         {
-            _checkoutService.CheckOutItem(assetId, driverLicenseId, numberOfRentalDays);
-            return RedirectToAction("Detail", new { id = assetId });
+            if (numberOfRentalDays > 0 && numberOfRentalDays < 29 && driverLicenseId > 0 && driverLicenseId < 11)
+            {
+                _checkoutService.CheckOutItem(assetId, driverLicenseId, numberOfRentalDays);
+                return RedirectToAction("Detail", new { id = assetId });
+            }
+
+            return RedirectToAction("CheckOut", new { id = assetId });
         }
 
         public IActionResult CheckIn(int id)
