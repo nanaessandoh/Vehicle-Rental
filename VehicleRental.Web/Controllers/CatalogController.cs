@@ -66,9 +66,7 @@ namespace VehicleRental.Web.Controllers
                 PatronName = _checkoutService.GetCurrentCheckoutPatron(id),
                 LatestCheckout = _checkoutService.GetLatestCheckout(id),
                 CheckoutHistory = _checkoutService.GetCheckoutHistory(id),
-                HoldHistory = _checkoutService.GetCurrentHolds(id),
-                CheckoutHistoryCount = _checkoutService.GetCheckoutHistory(id).Count(),
-                HoldHistoryCount = _checkoutService.GetCurrentHolds(id).Count()
+                HoldHistory = _checkoutService.GetCurrentHolds(id)
             };
 
             return View(model);

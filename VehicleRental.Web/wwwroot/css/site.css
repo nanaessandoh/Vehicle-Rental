@@ -263,13 +263,12 @@ body {
 }
 
 #patronHasFees {
+    font-size: 1.2em;
     color: #c62222;
-    font-weight: bold;
 }
 
 #patronNoFees {
-    color: #2f6fc7;
-    font-weight: bold;
+    font-size: 1.2em;
 }
 
 

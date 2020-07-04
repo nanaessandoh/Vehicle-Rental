@@ -24,7 +24,5 @@ namespace VehicleRental.Web.Models.Catalog
         public VehicleRental.Data.Models.Checkout LatestCheckout { get; set; }
         public IEnumerable<CheckoutHistory> CheckoutHistory { get; set; }
         public IEnumerable<Hold> HoldHistory { get; set; }
-        public int CheckoutHistoryCount { get; set; }
-        public int HoldHistoryCount { get; set; }
     }
 }

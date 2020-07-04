@@ -15,6 +15,7 @@ namespace VehicleRental.Web.Models.Patron
         public string LicenseID { get; set; }
         public DateTime IssueDate { get; set; }
         public DateTime ExpiryDate { get; set; }
+        public double OverdueFees { get; set; }
         public IEnumerable<VehicleRental.Data.Models.Checkout> Checkout { get; set; }
         public IEnumerable<CheckoutHistory> CheckoutHistory { get; set; }
     }

@@ -27,7 +27,8 @@ namespace VehicleRental.Service
         {
             return _context.Patrons
                 .Include(asset => asset.DriverLicense)
-                .Include(asset => asset.VehicleRentalBranch);
+                .Include(asset => asset.VehicleRentalBranch)
+                .OrderBy(asset => asset.FirstName);
         }
 
         public Patron GetById(int patronId)

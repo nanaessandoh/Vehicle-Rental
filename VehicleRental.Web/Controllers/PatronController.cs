@@ -54,6 +54,7 @@ namespace VehicleRental.Web.Controllers
                 Name = _patronService.GetPatronName(id),
                 Address = patronModel.Address,
                 Number = patronModel.TelephoneNumber,
+                OverdueFees = patronModel.DriverLicense.Fees,
                 LicenseID = _patronService.GetDriverLicense(id).LicenseID,
                 IssueDate = _patronService.GetDriverLicense(id).IssueDate,
                 ExpiryDate = _patronService.GetDriverLicense(id).ExpiryDate,
