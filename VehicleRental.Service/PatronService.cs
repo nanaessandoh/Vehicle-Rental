@@ -24,6 +24,12 @@ namespace VehicleRental.Service
             _context.SaveChanges();
         }
 
+
+        public void ClearFees(int patronId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Patron> GetAll()
         {
             return _context.Patrons
@@ -91,7 +97,6 @@ namespace VehicleRental.Service
                     PatronDetails = asset.FirstName + " " + asset.LastName + " - "+ asset.DriverLicense.LicenseID
                 });
         }
-
 
 
     }
