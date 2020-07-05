@@ -21,13 +21,13 @@
                     <p id="itemBody"><strong>Phone Number: </strong>@Model.Number</p>
                     @if (Model.OverdueFees > 0)
                     {
-                        <p id="patronHasFees"><strong>Outstanding Fees: </strong>@Model.OverdueFees</p>
+                        <p id="patronHasFees"><strong>Outstanding Fees: </strong>CDN$ @Model.OverdueFees</p>
                         <br />
                         <p><a class="btn btn-outline-primary" role="button" asp-controller="Patron" asp-action="ClearFees" asp-route-id="@Model.PatronId">Clear Fees</a></p>
                     }
                     else
                     {
-                        <p id="patronNoFees"><strong>Outstanding Fees: </strong>@Model.OverdueFees</p>
+                        <p id="patronNoFees"><strong>Outstanding Fees: </strong>CDN$ @Model.OverdueFees</p>
                     }
 
 

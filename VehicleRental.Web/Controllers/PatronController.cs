@@ -65,5 +65,23 @@ namespace VehicleRental.Web.Controllers
 
             return View(model);
         }
+
+        public IActionResult ClearFees(int id)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _patronService.ClearFees(id);
+                    return RedirectToAction("Detail", new { Id = id });
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Unable to complete transaction. Try again, and if the problem persists, see your system administrator.");
+            }
+
+            return RedirectToAction("Detail", new { Id = id });
+        }
     }
 }

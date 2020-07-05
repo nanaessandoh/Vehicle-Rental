@@ -27,7 +27,9 @@ namespace VehicleRental.Service
 
         public void ClearFees(int patronId)
         {
-            throw new NotImplementedException();
+            var driverLicenseOverdueFee = GetDriverLicense(patronId);
+            driverLicenseOverdueFee.Fees = 0.0;
+            _context.SaveChanges();
         }
 
         public IEnumerable<Patron> GetAll()

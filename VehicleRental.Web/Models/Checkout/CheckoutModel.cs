@@ -6,8 +6,7 @@ namespace VehicleRental.Web.Models.Checkout
     public class CheckoutModel
     {
         public int AssetId { get; set; }
-        public int SelectedPatronId { get; set; }
-        public int DriverLicenseId { get; set; }
+        public int SelectedPatronLicenseId { get; set; }
         public IEnumerable<SelectListItem> PatronDetails { get; set;}
         public int NumberOfRentalDays { get; set; }
         public string Make { get; set; }

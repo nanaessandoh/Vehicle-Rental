@@ -84,8 +84,7 @@ namespace VehicleRental.Web.Controllers
             var model = new CheckoutModel
             {
                 AssetId = id,
-                DriverLicenseId = 0,
-                SelectedPatronId = 0,
+                SelectedPatronLicenseId = 0,
                 PatronDetails = ConvertToSelectListItem(patrolModel), 
                 NumberOfRentalDays = 0,
                 ImageUrl = assetModel.ImageUrl,
@@ -99,12 +98,22 @@ namespace VehicleRental.Web.Controllers
 
 
         [HttpPost]
-        public IActionResult PlaceCheckout(int assetId, int selectedPatronId, int numberOfRentalDays)
+        public IActionResult PlaceCheckout(int assetId, int selectedPatronLicenseId, int numberOfRentalDays)
         {
-            if (isCheckoutConditionMet(selectedPatronId,numberOfRentalDays))
+            try
             {
-                _checkoutService.CheckOutItem(assetId, selectedPatronId, numberOfRentalDays);
-                return RedirectToAction("Detail", new { id = assetId });
+                if (ModelState.IsValid)
+                {
+                    if (IsCheckoutConditionMet(selectedPatronLicenseId, numberOfRentalDays))
+                    {
+                        _checkoutService.CheckOutItem(assetId, selectedPatronLicenseId, numberOfRentalDays);
+                        return RedirectToAction("Detail", new { id = assetId });
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Unable to complete transaction. Try again, and if the problem persists, see your system administrator.");
             }
 
             return RedirectToAction("CheckOut", new { id = assetId });
@@ -113,25 +122,73 @@ namespace VehicleRental.Web.Controllers
 
         public IActionResult CheckIn(int id)
         {
-            _checkoutService.CheckInItem(id);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _checkoutService.CheckInItem(id);
+                    return RedirectToAction("Detail", new { Id = id });
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Unable to complete transaction. Try again, and if the problem persists, see your system administrator.");
+            }
             return RedirectToAction("Detail", new { Id = id });
         }
 
         public IActionResult PlaceHold(int id)
         {
-            _checkoutService.PlaceHold(id);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _checkoutService.PlaceHold(id);
+                    return RedirectToAction("Detail", new { Id = id });
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Unable to complete transaction. Try again, and if the problem persists, see your system administrator.");
+            }
+
             return RedirectToAction("Detail", new { Id = id });
         }
 
         public IActionResult MarkStolen(int id)
         {
-            _checkoutService.MarkStolen(id);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _checkoutService.MarkStolen(id);
+                    return RedirectToAction("Detail", new { Id = id });
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Unable to complete transaction. Try again, and if the problem persists, see your system administrator.");
+            }
+
             return RedirectToAction("Detail", new { Id = id });
+
         }
 
         public IActionResult MarkAvailable(int id)
         {
-            _checkoutService.MarkAvailable(id);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _checkoutService.MarkAvailable(id);
+                    return RedirectToAction("Detail", new { Id = id });
+                }
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Unable to complete transaction. Try again, and if the problem persists, see your system administrator.");
+            }
+
             return RedirectToAction("Detail", new { Id = id });
         }
 
@@ -139,6 +196,10 @@ namespace VehicleRental.Web.Controllers
         // Helper Methods
         public IEnumerable<SelectListItem> ConvertToSelectListItem(IEnumerable<PatronList> list)
         {
+            var index = new PatronList { DriverLicenseId = -1, PatronDetails = "- Select A Customer -" };
+           
+            list = list.Append(index);
+            list = list.OrderBy(asset => asset.DriverLicenseId);
             return from PatronList asset in list
                    select new SelectListItem
                    {
@@ -148,7 +209,7 @@ namespace VehicleRental.Web.Controllers
         }
 
 
-        private bool isCheckoutConditionMet(int selectedPatronId, int numberOfRentalDays)
+        private bool IsCheckoutConditionMet(int selectedPatronId, int numberOfRentalDays)
         {
             return numberOfRentalDays > 0 && numberOfRentalDays < 29 && selectedPatronId != 0;
         }

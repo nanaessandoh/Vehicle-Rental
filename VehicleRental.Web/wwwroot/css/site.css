@@ -96,6 +96,12 @@ body {
     color: #fff;
 }
 
+
+#itemTitle {
+    font-size: 2.0em;
+}
+
+
 .homeLabel {
     background-color: rgba(0,0,0,0.3);
     padding: 4px;
@@ -160,13 +166,7 @@ body {
     font-size: 1.3em;
 }
 
-#itemTitle {
-    font-size: 2.0em;
-}
 
-#itemAuthor {
-    font-size: 1.6em;
-}
 
 #itemMake {
     font-size: 1.2em;
@@ -243,7 +243,7 @@ body {
 }
 
 .patronDetailImage {
-    width: 250px;
+    width: 300px;
     padding-bottom: 10px;
 }
 
