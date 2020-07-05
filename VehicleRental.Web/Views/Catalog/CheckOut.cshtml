@@ -39,8 +39,10 @@
                 {
                     <div class="row">
                         <div class="form-group col-md-6">
-                            @Html.LabelFor(asset => asset.DriverLicenseId, "Please Insert a Driver License ID.", new { @class = "h5" })
-                            @Html.TextBoxFor(asset => asset.DriverLicenseId, new { @class = "form-control", @type = "number" })
+                            @Html.LabelFor(asset => asset.SelectedPatronId, "Please Select a Customer.", new { @class = "h5" })
+                            @Html.DropDownListFor(asset => asset.SelectedPatronId, Model.PatronDetails, new { @class = "form-control"})
+                            @*@Html.LabelFor(asset => asset.DriverLicenseId, "Please Insert a Driver License ID.", new { @class = "h5" })
+                            @Html.TextBoxFor(asset => asset.DriverLicenseId, new { @class = "form-control", @type = "number" })*@
                             @*@Html.ValidationMessageFor(asset => asset.DriverLicenseId, "Enter a Valid Driver License ID.", new { @class = "text-danger" })*@
                         </div>
                     </div>

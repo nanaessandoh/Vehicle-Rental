@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Update;
 using VehicleRental.Web.Models.Catalog;
 using VehicleRental.Data;
-using VehicleRental.Data.Models;
 using VehicleRental.Web.Models.Checkout;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 
 namespace VehicleRental.Web.Controllers
 {
@@ -16,12 +14,14 @@ namespace VehicleRental.Web.Controllers
 
         private readonly IVehicleRentalAsset _assetsService;
         private readonly ICheckout _checkoutService;
+        private readonly IPatron _patronService;
 
         // Constructor to enable us access IVehicleRentalAsset object
-        public CatalogController(IVehicleRentalAsset assetsService, ICheckout checkoutService)
+        public CatalogController(IVehicleRentalAsset assetsService, ICheckout checkoutService, IPatron patronService)
         {
             _assetsService = assetsService;
             _checkoutService = checkoutService;
+            _patronService = patronService;
 
         }
         public IActionResult Index()
@@ -77,11 +77,16 @@ namespace VehicleRental.Web.Controllers
         public IActionResult CheckOut(int id)
         {
             var assetModel = _assetsService.GetById(id);
+            var patrolModel = _patronService.GetPatronList();
+
+           
 
             var model = new CheckoutModel
             {
                 AssetId = id,
                 DriverLicenseId = 0,
+                SelectedPatronId = 0,
+                PatronDetails = ConvertToSelectListItem(patrolModel), 
                 NumberOfRentalDays = 0,
                 ImageUrl = assetModel.ImageUrl,
                 Make = assetModel.Make,
@@ -94,39 +99,61 @@ namespace VehicleRental.Web.Controllers
 
 
         [HttpPost]
-        public IActionResult PlaceCheckout(int assetId, int driverLicenseId, int numberOfRentalDays)
+        public IActionResult PlaceCheckout(int assetId, int selectedPatronId, int numberOfRentalDays)
         {
-            if (numberOfRentalDays > 0 && numberOfRentalDays < 29 && driverLicenseId > 0 && driverLicenseId < 11)
+            if (isCheckoutConditionMet(selectedPatronId,numberOfRentalDays))
             {
-                _checkoutService.CheckOutItem(assetId, driverLicenseId, numberOfRentalDays);
+                _checkoutService.CheckOutItem(assetId, selectedPatronId, numberOfRentalDays);
                 return RedirectToAction("Detail", new { id = assetId });
             }
 
             return RedirectToAction("CheckOut", new { id = assetId });
         }
 
+
         public IActionResult CheckIn(int id)
         {
             _checkoutService.CheckInItem(id);
-            return RedirectToAction("Detail", new { id = id });
+            return RedirectToAction("Detail", new { Id = id });
         }
 
         public IActionResult PlaceHold(int id)
         {
             _checkoutService.PlaceHold(id);
-            return RedirectToAction("Detail", new { id = id });
+            return RedirectToAction("Detail", new { Id = id });
         }
 
         public IActionResult MarkStolen(int id)
         {
             _checkoutService.MarkStolen(id);
-            return RedirectToAction("Detail", new { id = id });
+            return RedirectToAction("Detail", new { Id = id });
         }
 
         public IActionResult MarkAvailable(int id)
         {
             _checkoutService.MarkAvailable(id);
-            return RedirectToAction("Detail", new { id = id });
+            return RedirectToAction("Detail", new { Id = id });
         }
+
+
+        // Helper Methods
+        public IEnumerable<SelectListItem> ConvertToSelectListItem(IEnumerable<PatronList> list)
+        {
+            return from PatronList asset in list
+                   select new SelectListItem
+                   {
+                       Value = asset.DriverLicenseId.ToString(),
+                       Text = asset.PatronDetails
+                   };
+        }
+
+
+        private bool isCheckoutConditionMet(int selectedPatronId, int numberOfRentalDays)
+        {
+            return numberOfRentalDays > 0 && numberOfRentalDays < 29 && selectedPatronId != 0;
+        }
+
+
+
     }
 }

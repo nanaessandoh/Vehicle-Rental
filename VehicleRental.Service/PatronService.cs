@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Text;
 using VehicleRental.Data;
 using VehicleRental.Data.Models;
@@ -30,6 +31,7 @@ namespace VehicleRental.Service
                 .Include(asset => asset.VehicleRentalBranch)
                 .OrderBy(asset => asset.FirstName);
         }
+
 
         public Patron GetById(int patronId)
         {
@@ -72,10 +74,25 @@ namespace VehicleRental.Service
         }
 
 
+
         string IPatron.GetPatronName(int patronId)
         {
             var patron = GetById(patronId);
             return patron.FirstName + " " + patron.LastName;
         }
+
+
+        public IEnumerable<PatronList> GetPatronList()
+        {
+            return _context.Patrons
+                .Select(asset => new PatronList()
+                {
+                    DriverLicenseId = asset.DriverLicense.Id,
+                    PatronDetails = asset.FirstName + " " + asset.LastName + " - "+ asset.DriverLicense.LicenseID
+                });
+        }
+
+
+
     }
 }

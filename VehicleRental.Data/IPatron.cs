@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using VehicleRental.Data.Models;
 
 namespace VehicleRental.Data
@@ -14,5 +12,12 @@ namespace VehicleRental.Data
         DriverLicense GetDriverLicense(int patronId);
         IEnumerable<CheckoutHistory> GetCheckoutHistories(int patronId);
         IEnumerable<Checkout> GetCheckouts(int patronId);
+        IEnumerable<PatronList> GetPatronList();
+    }
+
+    public class PatronList
+    {
+        public int DriverLicenseId { get; set; }
+        public string PatronDetails { get; set; }
     }
 }
