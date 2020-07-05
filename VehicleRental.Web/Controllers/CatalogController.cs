@@ -90,6 +90,7 @@ namespace VehicleRental.Web.Controllers
                 ImageUrl = assetModel.ImageUrl,
                 Make = assetModel.Make,
                 Model = assetModel.Model,
+                Cost = assetModel.Cost,
                 IsCheckedOut = _checkoutService.IsCheckedout(id)
             };
 
@@ -98,7 +99,7 @@ namespace VehicleRental.Web.Controllers
 
 
         [HttpPost]
-        public IActionResult PlaceCheckout(int assetId, int selectedPatronLicenseId, int numberOfRentalDays)
+        public IActionResult PlaceCheckout(int assetId, int selectedPatronLicenseId, double cost, int numberOfRentalDays)
         {
             try
             {
@@ -107,6 +108,7 @@ namespace VehicleRental.Web.Controllers
                     if (IsCheckoutConditionMet(selectedPatronLicenseId, numberOfRentalDays))
                     {
                         _checkoutService.CheckOutItem(assetId, selectedPatronLicenseId, numberOfRentalDays);
+                        _patronService.UpdateFees(selectedPatronLicenseId, cost, numberOfRentalDays);
                         return RedirectToAction("Detail", new { id = assetId });
                     }
                 }

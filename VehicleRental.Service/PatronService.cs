@@ -27,8 +27,16 @@ namespace VehicleRental.Service
 
         public void ClearFees(int patronId)
         {
-            var driverLicenseOverdueFee = GetDriverLicense(patronId);
-            driverLicenseOverdueFee.Fees = 0.0;
+            var driverLicense = GetDriverLicense(patronId);
+            driverLicense.Fees = 0.0;
+            _context.SaveChanges();
+        }
+
+        public void UpdateFees(int patronLicenseId, double costPerDay, int numberOfRentalDays)
+        {
+            var driverLicense = _context.DriverLicenses
+                .FirstOrDefault(asset => asset.Id == patronLicenseId);
+            driverLicense.Fees += (numberOfRentalDays * costPerDay);
             _context.SaveChanges();
         }
 
@@ -99,7 +107,6 @@ namespace VehicleRental.Service
                     PatronDetails = asset.FirstName + " " + asset.LastName + " - "+ asset.DriverLicense.LicenseID
                 });
         }
-
 
     }
 }
