@@ -6,6 +6,8 @@ using VehicleRental.Data;
 using VehicleRental.Web.Models.Checkout;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using VehicleRental.Service;
+using VehicleRental.Data.Models;
 
 namespace VehicleRental.Web.Controllers
 {

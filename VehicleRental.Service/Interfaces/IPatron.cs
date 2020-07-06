@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using VehicleRental.Data.Models;
 
-namespace VehicleRental.Data
+namespace VehicleRental.Service
 {
     public interface IPatron
     {
@@ -17,9 +17,5 @@ namespace VehicleRental.Data
         IEnumerable<PatronList> GetPatronList();
     }
 
-    public class PatronList
-    {
-        public int DriverLicenseId { get; set; }
-        public string PatronDetails { get; set; }
-    }
+
 }

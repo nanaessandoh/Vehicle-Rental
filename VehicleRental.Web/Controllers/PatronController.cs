@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using VehicleRental.Data;
+using VehicleRental.Service;
 using VehicleRental.Web.Models.Patron;
 
 namespace VehicleRental.Web.Controllers

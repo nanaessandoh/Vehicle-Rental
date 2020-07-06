@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime;
-using System.Text;
 using VehicleRental.Data;
 using VehicleRental.Data.Models;
 
@@ -90,8 +87,7 @@ namespace VehicleRental.Service
         }
 
 
-
-        string IPatron.GetPatronName(int patronId)
+        public string GetPatronName(int patronId)
         {
             var patron = GetById(patronId);
             return patron.FirstName + " " + patron.LastName;

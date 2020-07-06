@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VehicleRental.Data.Models;
 
-namespace VehicleRental.Data
+namespace VehicleRental.Service
 {
     public interface ICheckout
     {
