@@ -1,3 +1,3 @@
-# Vehicle Rental
+# Vehicle Rental Management System
 
-Vehicle Rental Management Software using ASP.Net Core MVC
+Vehicle Rental Management System using ASP.Net Core MVC

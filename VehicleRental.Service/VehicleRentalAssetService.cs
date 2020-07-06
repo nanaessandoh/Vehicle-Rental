@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VehicleRental.Data;
 using VehicleRental.Data.Models;
+using VehicleRental.Service.Interfaces;
 
 namespace VehicleRental.Service
 {
