@@ -7,7 +7,7 @@ namespace VehicleRental.Web.Models.Branch
 {
     public class BranchIndexModel
     {
-        IEnumerable<BranchIndexListingModel> Branch { get; set; }
+        IEnumerable<BranchIndexListingModel> Branches { get; set; }
     }
 
     public class BranchIndexListingModel
@@ -15,13 +15,7 @@ namespace VehicleRental.Web.Models.Branch
         public int BranchId { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public string City { get; set; }
-        public string Province { get; set; }
-        public string Location
-        {
-            get { return City + ", " + Province; }
-            set { Location = value; }
-        }
+        public string Location { get; set; }
         public string ImageUrl { get; set; }
 
     }
