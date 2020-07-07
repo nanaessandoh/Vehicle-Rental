@@ -41,6 +41,7 @@ namespace VehicleRental.Service
 
         public static string HumanizeDay(int dayOfWeek)
         {
+            // Our Data Correlates 1 to Sunday, 2 to Monday etc.
             return Enum.GetName(typeof(DayOfWeek), dayOfWeek - 1);
         }
     }
