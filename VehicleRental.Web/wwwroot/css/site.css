@@ -145,9 +145,18 @@ body {
     width: 180px;
 }
 
+.vehicleImageCell {
+    width: 90px;
+}
+
 .profileCell {
     width: 30px;
     height: 30px;
+}
+
+
+.cityImageCell {
+    width: 200px;
 }
 
 
@@ -242,9 +251,19 @@ body {
     padding-bottom: 6px;
 }
 
+
 .patronDetailImage {
     width: 300px;
     padding-bottom: 10px;
+}
+
+.branchImageContainer {
+    text-align: center;
+}
+
+.branchDetailImage {
+    width: 700px;
+    padding-bottom: 30px;
 }
 
 .detailInfo {

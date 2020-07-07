@@ -32,12 +32,16 @@ namespace VehicleRental.Service
 
         public static string HumanizeTime(int? openTime)
         {
+            if(openTime == null)
+            {
+                return null;
+            }
             return TimeSpan.FromHours((int)openTime).ToString("hh':'mm");
         }
 
         public static string HumanizeDay(int dayOfWeek)
         {
-            return Enum.GetName(typeof(DayOfWeek), dayOfWeek);
+            return Enum.GetName(typeof(DayOfWeek), dayOfWeek - 1);
         }
     }
 }

@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VehicleRental.Data;
 using VehicleRental.Service;
+using VehicleRental.Service.Interfaces;
 
 namespace VehicleRental.Web
 {
@@ -38,7 +40,7 @@ namespace VehicleRental.Web
             services.AddScoped<IVehicleRentalAsset, VehicleRentalAssetService>();
             services.AddScoped<ICheckout, CheckoutService>();
             services.AddScoped<IPatron, PatronService>();
-
+            services.AddScoped<IVehicleRentalBranch, VehicleRentalBranchService>();
         }
 
 

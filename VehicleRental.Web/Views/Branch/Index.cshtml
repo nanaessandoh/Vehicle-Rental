@@ -1,0 +1,45 @@
+﻿@model VehicleRental.Web.Models.Branch.BranchIndexModel
+
+
+@{
+    ViewData["Title"] = "Branches";
+}
+
+
+<div id="assets">
+    <div class=" clearfix detailHeading">
+        <h2 class="text-muted">Rental Branches</h2>
+    </div>
+
+    <div id="assetsTable">
+        <table class="table table-condensed" id="IndexTable">
+            <thead>
+                <tr>
+                    <th class="text-center"></th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Address</th>
+                    <th class="text-center">Location</th>
+                    <th class="text-center">Telephone</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var asset in Model.Branches)
+                {
+                <tr class="assetRow">
+                    <td class="">
+                        <div>
+                            <a asp-controller="Branch" asp-action="Detail" asp-route-id="@asset.BranchId">
+                                <img src="@asset.ImageUrl" class="cityImageCell" />
+                            </a>
+                        </div>
+                    </td>
+                    <td class="">@asset.Name</td>
+                    <td class="">@asset.Address</td>
+                    <td class="">@asset.Location</td>
+                    <td class="">@asset.Telephone</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

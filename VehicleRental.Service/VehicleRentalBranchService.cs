@@ -37,6 +37,8 @@ namespace VehicleRental.Service
         public IEnumerable<VehicleRentalAsset> GetAssets(int branchId)
         {
             return _context.VehicleRentalAssets
+                .Include(asset => asset.Location)
+                .Include(asset => asset.Status)
                 .Where(asset => asset.Location.Id == branchId);
         }
 

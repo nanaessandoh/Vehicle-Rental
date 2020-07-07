@@ -14,6 +14,7 @@ namespace VehicleRental.Web.Models.Branch
         public string Location { get; set; }
         public string Telephone { get; set; }
         public bool IsOpen { get; set; }
+        public string OpenDate { get; set; }
         public string ImageUrl { get; set; }
         public int NumberOfAssets { get; set; }
         public IEnumerable<string> HoursOpen { get; set; }

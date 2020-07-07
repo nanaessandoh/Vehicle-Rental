@@ -30,6 +30,7 @@ namespace VehicleRental.Web.Controllers
                     Name = result.Name,
                     Address = result.Address,
                     Location = result.City + ", " + result.Province,
+                    Telephone = result.Telephone,
                     ImageUrl = result.ImageUrl
                 });
 
@@ -53,13 +54,14 @@ namespace VehicleRental.Web.Controllers
                 Location = branchModel.City + ", " + branchModel.Province,
                 ImageUrl = branchModel.ImageUrl,
                 Telephone = branchModel.Telephone,
+                OpenDate = branchModel.OpenDate.ToString("yyyy-MM-dd"),
                 HoursOpen = _branchService.GetBranchHours(id),
                 IsOpen = _branchService.IsBranchOpen(id),
                 BranchAssets = _branchService.GetAssets(id),
                 NumberOfAssets = _branchService.GetAssets(id).Count()
             };
 
-            return View();
+            return View(model);
         }
 
     }
