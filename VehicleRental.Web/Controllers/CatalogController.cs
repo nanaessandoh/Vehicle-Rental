@@ -40,7 +40,7 @@ namespace VehicleRental.Web.Controllers
                     BodyType = _assetsService.GetBodyType(result.Id)
                 });
 
-            var model = new AssetIndexModel()
+            var model = new AssetIndexModel
             {
                 Assets = listingResult
             };

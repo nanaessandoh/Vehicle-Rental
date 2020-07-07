@@ -7,7 +7,7 @@ namespace VehicleRental.Web.Models.Branch
 {
     public class BranchIndexModel
     {
-        IEnumerable<BranchIndexListingModel> Branches { get; set; }
+        public IEnumerable<BranchIndexListingModel> Branches { get; set; }
     }
 
     public class BranchIndexListingModel

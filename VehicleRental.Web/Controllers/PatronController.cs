@@ -36,7 +36,7 @@ namespace VehicleRental.Web.Controllers
                     PatronRentalBranch = result.VehicleRentalBranch.Name
                 });
 
-            var model = new PatronIndexModel()
+            var model = new PatronIndexModel
             {
                 Patrons = listingResult
             };
