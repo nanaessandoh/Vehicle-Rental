@@ -105,15 +105,17 @@ namespace VehicleRental.Web.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
+                    return View();
+                }
+
                     if (IsCheckoutConditionMet(selectedPatronLicenseId, numberOfRentalDays))
                     {
                         _checkoutService.CheckOutItem(assetId, selectedPatronLicenseId, numberOfRentalDays);
                         _patronService.UpdateFees(selectedPatronLicenseId, cost, numberOfRentalDays);
                         return RedirectToAction("Detail", new { id = assetId });
                     }
-                }
             }
             catch (Exception)
             {

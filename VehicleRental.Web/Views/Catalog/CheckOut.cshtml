@@ -39,21 +39,20 @@
                 {
                     @Html.HiddenFor(asset => asset.AssetId)
                     @Html.HiddenFor(asset => asset.Cost)
+                    @Html.ValidationSummary("Please correct the errors and try again.")
 
                     <div class="row">
                         <div class="form-group col-md-6">
                             @Html.LabelFor(asset => asset.SelectedPatronLicenseId, "Please Select a Customer.", new { @class = "h6" })
-                            @Html.DropDownListFor(asset => asset.SelectedPatronLicenseId, Model.PatronDetails, new { @class = "form-control" })
-                            @*@Html.LabelFor(asset => asset.DriverLicenseId, "Please Insert a Driver License ID.", new { @class = "h5" })
-                    @Html.TextBoxFor(asset => asset.DriverLicenseId, new { @class = "form-control", @type = "number" })*@
-                            @*@Html.ValidationMessageFor(asset => asset.DriverLicenseId, "Enter a Valid Driver License ID.", new { @class = "text-danger" })*@
+                            @Html.DropDownListFor(asset => asset.SelectedPatronLicenseId, Model.PatronDetails, new { id = "SelectedPatronLicenceId", @class = "form-control" })
+                            @Html.ValidationMessageFor(asset => asset.SelectedPatronLicenseId, "Select a customer", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             @Html.LabelFor(asset => asset.NumberOfRentalDays, "Please Enter the Number of Days.", new { @class = "h6" })
-                            @Html.TextBoxFor(asset => asset.NumberOfRentalDays, new { @class = "form-control", @type = "number" })
-                            @*@Html.ValidationMessageFor(asset => asset.NumberOfRentalDays, "A Vehicle Can be rented for 1 to 28 days.", new { @class = "text-danger" })*@
+                            @Html.TextBoxFor(asset => asset.NumberOfRentalDays, new { id = "NumberOfRentalDays", @class = "form-control", @type = "number" })
+                            @Html.ValidationMessageFor(asset => asset.NumberOfRentalDays, "Enter a valid number i.e. 1 to 28", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row">
@@ -70,15 +69,8 @@
     </div>
 </div>
 
-@*@section Scripts{
-        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    }*@
 
-@*@section Styles{
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    }*@
+
 
 
 

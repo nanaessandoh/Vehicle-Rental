@@ -10,13 +10,12 @@
             <h2 class="text-muted">Customer Details</h2>
         </div>
         <div class="jumbotron">
-            <div class=" = row">
-                <div class="col-md-12 branchImageContainer">
-                    <img class="branchDetailImage" src="@Model.ImageUrl" />
-                </div>
-            </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5 branchImageContainer">
+                    <img class="branchDetailImage" src="@Model.ImageUrl" />
+                    <p><a class="btn btn-outline-primary" data-toggle="collapse" href="#collapseAssets" role="button" aria-expanded="false" aria-controls="collapseAssets">Show Branch Vehicles</a></p>
+                </div>
+                <div class="col-md-4">
                     <h3>@Model.Name</h3>
                     <p id="itemMake"><strong>Address: </strong>@Model.Address</p>
                     <p id="itemModel"><strong>Location: </strong>@Model.Location</p>
@@ -24,9 +23,8 @@
                     <p id="itemBody"><strong>Established: </strong>@Model.OpenDate</p>
                     <p id="itemBody"><strong>Number of Vehicles: </strong>@Model.NumberOfAssets</p>
                     <p id="itemBody"><strong>Available: </strong>@Model.IsOpen</p>
-
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <h3 class="text-muted">Hours </h3>
                     @foreach (var day in @Model.HoursOpen)
                     {
@@ -38,42 +36,44 @@
 
         <div class="row">
             <div class="col-md-8">
-                <h4>Checkout History</h4>
-                @if (Model.BranchAssets.Count() == 0)
-                {
-                    <p>No Vehicle Assigned to this Branch</p>
-                }
-                else
-                {
-                    <table class="table table-bordered table-hover table-condensed">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Vehicle</th>
-                                <th>VIN</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var vehicle in @Model.BranchAssets)
-                            {
-                            <tr>
-                                <td>
-                                <div>
-                                    <a asp-controller="Catalog" asp-action="Detail" asp-route-id="@vehicle.Id">
-                                        <img src="@vehicle.ImageUrl" class="vehicleImageCell" />
-                                    </a>
-                                </div>
-                                </td>
-                                <td>@vehicle.Make @vehicle.Model</td>
-                                <td>@vehicle.VIN</td>
-                                <td>@vehicle.Status.Name</td>
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
-                }
+                <div class="collapse" id="collapseAssets">
+                    <h4>Branch Vehicles</h4>
+                    @if (Model.BranchAssets.Count() == 0)
+                    {
+                        <p>No Vehicle Assigned to this Branch</p>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Vehicle</th>
+                                    <th>VIN</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var vehicle in @Model.BranchAssets)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <a asp-controller="Catalog" asp-action="Detail" asp-route-id="@vehicle.Id">
+                                                    <img src="@vehicle.ImageUrl" class="vehicleImageCell" />
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>@vehicle.Make @vehicle.Model</td>
+                                        <td>@vehicle.VIN</td>
+                                        <td>@vehicle.Status.Name</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
 
+                </div>
             </div>
-        </div>
+          </div>
     </div>
