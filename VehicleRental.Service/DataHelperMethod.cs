@@ -18,7 +18,7 @@ namespace VehicleRental.Service
                 string timeEntry;
                 if ( openTime == null)
                 {
-                    timeEntry = "Closed for the day";
+                    timeEntry = $"{day} - Closed for the day";
                 }
                 else
                 {

@@ -9,7 +9,6 @@ namespace VehicleRental.Data.Models
     {
         public int Id { get; set; }
         [Required]
-        [StringLength(40, ErrorMessage ="Limit Branch Name to 40 Characters")]
         public string Name { get; set; }
         [Required]
         public string Address { get; set; }
