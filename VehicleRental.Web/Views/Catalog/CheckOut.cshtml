@@ -30,39 +30,39 @@
 
                 @using (Html.BeginForm("PlaceCheckout", "Catalog", FormMethod.Post))
                 {
-                @Html.HiddenFor(asset => asset.AssetId)
-                @Html.HiddenFor(asset => asset.Cost)
-                @*@Html.ValidationSummary("Please correct the errors and try again.")*@
+                    @Html.HiddenFor(asset => asset.AssetId)
+                    @Html.HiddenFor(asset => asset.Cost)
+                    <div asp-validation-summary="All" class="text-danger"></div>
 
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        @Html.LabelFor(asset => asset.SelectedPatronLicenseId, "Please Select a Customer.", new { @class = "h5" })
-                        @Html.DropDownListFor(asset => asset.SelectedPatronLicenseId, Model.PatronDetails, new { id = "SelectedPatronLicenceId", @class = "form-control" })
-                        @Html.ValidationMessageFor(asset => asset.SelectedPatronLicenseId, "Select a customer", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(asset => asset.SelectedPatronLicenseId, "Please Select a Customer.", new { @class = "h5" })
+                            @Html.DropDownListFor(asset => asset.SelectedPatronLicenseId, Model.PatronDetails, new { id = "SelectedPatronLicenceId", @class = "form-control" })
+                            <span asp-validation-for="SelectedPatronLicenseId" class="text-danger"></span>
+                            @*@Html.ValidationMessageFor(asset => asset.SelectedPatronLicenseId, "Select a customer", new { @class = "text-danger" })*@
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        @Html.LabelFor(asset => asset.NumberOfRentalDays, "Please Enter the Number of Days.", new { @class = "h5" })
-                        @Html.TextBoxFor(asset => asset.NumberOfRentalDays, new { id = "NumberOfRentalDays", @class = "form-control", @type = "number" })
-                        @Html.ValidationMessageFor(asset => asset.NumberOfRentalDays, "Enter a valid number i.e. 1 to 28", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(asset => asset.NumberOfRentalDays, "Please Enter the Number of Days.", new { @class = "h5" })
+                            @Html.TextBoxFor(asset => asset.NumberOfRentalDays, new { id = "NumberOfRentalDays", @class = "form-control", @type = "number" })
+                            <span asp-validation-for="NumberOfRentalDays" class="text-danger"></span>
+                            @*@Html.ValidationMessageFor(asset => asset.NumberOfRentalDays, "Enter a valid number i.e. 1 to 28", new { @class = "text-danger" })*@
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <input type="submit" class="btn btn-outline-success" value="Check Out" />
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <input type="submit" class="btn btn-outline-success" value="Check Out" />
+                        </div>
                     </div>
-                </div>
 
 
-                @Html.HiddenFor(asset => asset.AssetId)
+                    @Html.HiddenFor(asset => asset.AssetId)
                 }
             </div>
         </div>
     </div>
 </div>
-
-
 
 
 
