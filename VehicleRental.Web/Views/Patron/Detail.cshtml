@@ -34,8 +34,8 @@
                 </div>
                 <div class="col-md-4">
                     <p id="itemPatron"><strong>License ID: </strong> @Model.LicenseID</p>
-                    <p id="itemVIN"><strong>Issue Date: </strong> @Model.IssueDate</p>
-                    <p id="itemLocation"><strong>Expiry Date: </strong> @Model.ExpiryDate</p>
+                    <p id="itemVIN"><strong>Issue Date: </strong> @Model.IssueDate.ToString("yyyy-MM-dd")</p>
+                    <p id="itemLocation"><strong>Expiry Date: </strong> @Model.ExpiryDate.ToString("yyyy-MM-dd")</p>
                 </div>
             </div>
         </div>

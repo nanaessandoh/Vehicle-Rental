@@ -23,46 +23,39 @@
 
 
             <div class="col-md-7">
-
-
-                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    <h5 class="alert-heading">Please Note!</h5>
-                    <p>A vehicle can be rented for a <strong>minimum of 1 day</strong> to a <strong>maximum of 28 days</strong>.</p>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="alert alert-info alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Please Note!</strong> A vehicle can be rented for a <strong>minimum of 1 day</strong> to a <strong>maximum of 28 days</strong>.
                 </div>
-
-
 
                 @using (Html.BeginForm("PlaceCheckout", "Catalog", FormMethod.Post))
                 {
-                    @Html.HiddenFor(asset => asset.AssetId)
-                    @Html.HiddenFor(asset => asset.Cost)
-                    @Html.ValidationSummary("Please correct the errors and try again.")
+                @Html.HiddenFor(asset => asset.AssetId)
+                @Html.HiddenFor(asset => asset.Cost)
+                @*@Html.ValidationSummary("Please correct the errors and try again.")*@
 
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            @Html.LabelFor(asset => asset.SelectedPatronLicenseId, "Please Select a Customer.", new { @class = "h6" })
-                            @Html.DropDownListFor(asset => asset.SelectedPatronLicenseId, Model.PatronDetails, new { id = "SelectedPatronLicenceId", @class = "form-control" })
-                            @Html.ValidationMessageFor(asset => asset.SelectedPatronLicenseId, "Select a customer", new { @class = "text-danger" })
-                        </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(asset => asset.SelectedPatronLicenseId, "Please Select a Customer.", new { @class = "h5" })
+                        @Html.DropDownListFor(asset => asset.SelectedPatronLicenseId, Model.PatronDetails, new { id = "SelectedPatronLicenceId", @class = "form-control" })
+                        @Html.ValidationMessageFor(asset => asset.SelectedPatronLicenseId, "Select a customer", new { @class = "text-danger" })
                     </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            @Html.LabelFor(asset => asset.NumberOfRentalDays, "Please Enter the Number of Days.", new { @class = "h6" })
-                            @Html.TextBoxFor(asset => asset.NumberOfRentalDays, new { id = "NumberOfRentalDays", @class = "form-control", @type = "number" })
-                            @Html.ValidationMessageFor(asset => asset.NumberOfRentalDays, "Enter a valid number i.e. 1 to 28", new { @class = "text-danger" })
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(asset => asset.NumberOfRentalDays, "Please Enter the Number of Days.", new { @class = "h5" })
+                        @Html.TextBoxFor(asset => asset.NumberOfRentalDays, new { id = "NumberOfRentalDays", @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(asset => asset.NumberOfRentalDays, "Enter a valid number i.e. 1 to 28", new { @class = "text-danger" })
                     </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <input type="submit" class="btn btn-outline-success" value="Check Out" />
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <input type="submit" class="btn btn-outline-success" value="Check Out" />
                     </div>
+                </div>
 
 
-                    @Html.HiddenFor(asset => asset.AssetId)
+                @Html.HiddenFor(asset => asset.AssetId)
                 }
             </div>
         </div>
