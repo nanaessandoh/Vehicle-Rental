@@ -4,14 +4,22 @@ Vehicle Rental Management System using ASP.Net Core MVC
 
 Live Demo Available [Here](http://vehiclerental.azurewebsites.net/)
 
-## Images
+# Images
 ![Homepage](Screenshots/1.png "Homepage")
+
+
 ![Vehicle Inventory](Screenshots/2.png "Vehicle Rental")
+
+
 ![Vehicle Details](Screenshots/3.png "Vehicle Rental")
+
+
 ![Patron Details](Screenshots/4.png "Patron Details")
+
+
 ![Branch Details](Screenshots/5.png "Branch Details")
 
-## Features Test
+# Features Test
 - Responsive web design
   - [See mobile emulators](https://www.responsinator.com/?url=https%3A%2F%2Fvehiclerental.azurewebsites.net%2F)
 - Mobile friendly
@@ -22,7 +30,7 @@ Live Demo Available [Here](http://vehiclerental.azurewebsites.net/)
   - [Run PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/?url=http%3A%2F%2Fvehiclerental.azurewebsites.net%2F)
 
 
-## How to use
+# How to use
 
 On the command line, install the template.
 
