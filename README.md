@@ -36,7 +36,8 @@ On the command line, install the template.
 
 ```cmd
 cd Vehicle-Rental
-dotnet watch run
+dotnet restore
+dotnet run
 ```
 
 After the command shell indicates that the app has started, browse to 
